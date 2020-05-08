@@ -3,7 +3,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 const MongoUtils = () => {
   const MyMongoLib = this || {};
-  const url = 'mongodb://localhost:27017' || process.env.MONGODB_URI;
+  const url = process.env.MONGODB_URI || 'mongodb://localhost:27017' ;
   let db;
   const dbName = 'covidDB';
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
