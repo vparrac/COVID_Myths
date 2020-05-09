@@ -4,6 +4,7 @@ import "./Home.css";
 
 const Home = (props) => {
   return (
+    
     <div>
       <div className="title">Covid-19 Myths</div>
       <hr></hr>

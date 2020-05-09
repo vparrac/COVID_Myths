@@ -1,37 +1,35 @@
-.title{
-  color:#425CB3;  
+.title {
+  color: #425cb3;
   padding-top: 20px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: xx-large;
-  margin: 0 auto;    
+  margin: 0 auto;
 }
 
-.myth{
-  color: #FFA58C
+.myth {
+  color: #ffa58c;
 }
 
-.subtitle{
-  color:#91AAFF;
+.subtitle {
+  color: #91aaff;
 }
 
-.truth{
-  color: #B2FF5A
+.truth {
+  color: #b2ff5a;
 }
 
-
-.black{
-  color: #1C290D
+.black {
+  color: #1c290d;
 }
 
-
-.footer{
-  font-family: 'Lora', serif;
+.footer {
+  font-family: "Lora", serif;
   font-size: medium;
   text-align: center;
 }
 
 .btnLogin {
-  font-family: 'Lora', serif;
+  font-family: "Lora", serif;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -44,10 +42,10 @@
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-      border-top-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
   border-top-color: transparent;
   border-right-color: transparent;
   border-bottom-color: transparent;
@@ -56,6 +54,15 @@
   font-size: 1.2rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  color:#425CB3;
-  border-color: #425CB3;   }
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #425cb3;
+  border-color: #425cb3;
+}
+
+
+
+.btnLogin:hover {
+  background-color:aliceblue;
+  
+}
