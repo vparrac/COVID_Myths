@@ -1,0 +1,14 @@
+.footer .h4{
+    font-family: "Open Sans", sans-serif;
+    font-size: 120%;
+    padding-left: 12%;
+    padding-right: 12%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: justify;
+    color: #1c290d;
+}
+
+a{
+    color:#425cb3;    
+}

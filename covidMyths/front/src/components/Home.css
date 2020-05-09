@@ -1,0 +1,110 @@
+.title {
+  color: #425cb3;
+  font-family: "Lora", serif;
+  text-align: center;
+  font-size: 300%;
+  padding-top: 0%;
+}
+
+.paragraph {
+  font-family: "Open Sans", sans-serif;
+  font-size: 120%;
+  padding-left: 12%;
+  padding-right: 12%;
+  text-align: justify;
+  color: #1c290d;
+}
+
+.img-fin {
+  padding: 0.3rem;
+  background-color: #fff;
+  text-align: center;
+  display: block;
+  margin: auto;
+  max-width: 310%;  
+  height: auto;
+}
+
+.img-fin-2 {
+  padding: 0.3rem;
+  background-color: #fff;
+  text-align: center;
+  display: block;
+  margin: auto;
+  max-width: 300%;  
+  height: auto;
+}
+
+.titulo-fin{
+  color:#91AAFF;
+  font-family: 'Lora', serif;
+  font-size: 150%;
+  text-align: center;
+}
+
+.container-imagenes{
+  padding-left: 0%;
+  padding-right: 8%;
+}
+.img-home {
+  padding: 0.3rem;
+  background-color: #fff;
+  text-align: center;
+  display: block;
+  margin: auto;
+  max-width: 20%;  
+  height: auto;
+}
+
+.card {
+  word-wrap: break-word;
+  width: 18rem;
+}
+
+.cards {
+  padding: 0.3rem;
+  background-color: #fff;
+  text-align: center;
+  display: block;
+  margin: auto;
+  max-width: 20%;  
+  height: auto;
+}
+
+.list {
+  font-family: "Open Sans", sans-serif;
+  font-size: 120%;
+  padding-left: 12%;
+  padding-right: 12%;
+  color: #1c290d;
+}
+
+.subtitle {
+  color: #ffa58c;
+  font-family: "Lora", serif;
+  font-size: 150%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+
+.list-group-item {
+  position: relative;
+  text-align: left;
+  display: block;
+  padding: .75rem 1.25rem;
+  background-color: #fff;
+  border: 1px solid #425CB3; ;
+      border-top-width: 1px;
+      border-right-width: 1px;
+      border-left-width: 1px;
+}
+
+.list-group-item:hover{
+  background-color: #91AAFF;
+}
+.width {
+  width: 40rem;
+}
+
