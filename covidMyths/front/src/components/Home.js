@@ -71,7 +71,7 @@ const Home = (props) => {
             <div className="cards">
                 <div className="titulo-fin">¡Pregunta!</div>
                 <img src="./img/ask.png" alt="Ver noticias" className="img-fin-2"></img>
-              </div>
+              </div> 
             </div>
           </div>
         </div>
