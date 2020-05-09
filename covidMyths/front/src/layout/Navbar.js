@@ -5,6 +5,8 @@ import Menu from "../components/Menu";
 import Login from "../components/Login";
 import Footer from "./Footer";
 import Register from "../components/Register";
+import Noticias from "../components/VerNoticias"
+
 const Navbar = () => {
   const [img, setimg] = useState("./img/noticias.png");
   const [mostrar, setmostrar] = useState(true);
@@ -52,6 +54,12 @@ const Navbar = () => {
       <Route path="/login" exact component={() => <Login></Login>}></Route>
 
       <Route path="/register" exact component={() => <Register></Register>}></Route>
+
+      <Route
+        path="/noticias"
+        exact
+        component={() => <Noticias setmostrar={setmostrar}></Noticias>}
+      ></Route>
 
       {mostrar ? <Footer></Footer> : <div></div>}
       
