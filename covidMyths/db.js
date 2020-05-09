@@ -1,189 +1,104 @@
-require("dotenv").config();
+require('dotenv').config();
 const { MongoClient, ObjectId } = require('mongodb');
+const request = require('request');
 
 const MongoUtils = () => {
   const MyMongoLib = this || {};
-  const url = process.env.MONGODB_URI || 'mongodb://localhost:27017' ;
-  let db;
+  const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+  const apiKey = '11c85b7f6c6f4f2594a793eea57c096b';
+  const apiUrl = 'http://newsapi.org/v2/everything';
   const dbName = 'covidDB';
-  MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
-    db = client.db(dbName);
-  });
+
+  MyMongoLib.connect = (url) => {
+    const client = new MongoClient(url, { useUnifiedTopology: true });
+    return client.connect();
+  };
 
   MyMongoLib.insertOneDoc = (doc, dbCollection) => {
-    const collection = db.collection(dbCollection);
-    return collection.insertOne(doc);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .insertOne(doc)
+        .finally(() => client.close())
+    );
   };
 
   MyMongoLib.insertManyDocs = (docs, dbCollection) => {
-    const collection = db.collection(dbCollection);
-    return collection.insertMany(docs);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .insertManyDocs(doc)
+        .finally(() => client.close())
+    );
   };
 
   MyMongoLib.getDocs = (dbCollection) => {
-    const collection = db.collection(dbCollection);
-    return collection.find({}).toArray();
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .find({})
+        .toArray()
+        .finally(() => client.close())
+    );
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
-    const collection = db.collection(dbCollection);
-    return collection.replaceOne(
-      {
-        _id: ObjectId(id),
-      },
-      object
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .replaceOne(
+          {
+            _id: ObjectId(id),
+          },
+          object
+        )
+        .finally(() => client.close())
     );
   };
 
   MyMongoLib.getDocById = (id, dbCollection) => {
-    const collection = db.collection(dbCollection);
-    return collection
-      .find({
-        _id: ObjectId(id),
-      })
-      .toArray();
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .find({ _id: ObjectId(id) })
+        .finally(() => client.close())
+    );
   };
   MyMongoLib.getLoginByUsername = (username) => {
-    const collection = db.collection('login');
-    return collection
-      .find({
-        username: username,
-      })
-      .toArray();
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection('login')
+        .find({ username: username })
+        .toArray()
+        .finally(() => client.close())
+    );
   };
 
-  MyMongoLib.reporte = (fechas, usuario) => {
-    return db
-      .collection('fatiga')
-      .aggregate([
-        {
-          $match: {
-            user: usuario,
-            fecha: { $gte: fechas[0], $lte: fechas[1] },
-          },
+  MyMongoLib.getNewsOfCovid = () => {
+    return new Promise((resolve, reject) => {
+      let options = {
+        url: apiUrl,
+        qs: {
+          q: 'Covid AND coronaVirus',
+          qInTitle: 'Covid AND Coronavirus',
+          language: 'es',
+          apiKey: apiKey,
         },
-        {
-          $lookup: {
-            from: 'congestion',
-            let: { user: usuario },
-            as: 'congestion',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'dolor',
-            let: { user: usuario },
-            as: 'dolor',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'dificultadRespirar',
-            let: { user: usuario },
-            as: 'dificultadRespirar',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'fiebre',
-            let: { user: usuario },
-            as: 'fiebre',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'tos',
-            let: { user: usuario },
-            as: 'tos',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'dolorCabeza',
-            let: { user: usuario },
-            as: 'dolorCabeza',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'diarrea',
-            let: { user: usuario },
-            as: 'diarrea',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-        {
-          $lookup: {
-            from: 'medicina',
-            let: { user: usuario },
-            as: 'medicina',
-            pipeline: [
-              {
-                $match: {
-                  user: usuario,
-                  fecha: { $gte: fechas[0], $lte: fechas[1] },
-                },
-              },
-            ],
-          },
-        },
-      ])
-      .toArray();
+      };
+      request(options, (error, response, body) => {
+        if (!error) {
+          resolve(body);
+        } else {
+          reject(error);
+        }
+      });
+    });
   };
 
   MyMongoLib.getWithJoin = (
@@ -194,30 +109,35 @@ const MongoUtils = () => {
     asName,
     id
   ) => {
-    const collection = db.collection(dbcollection);
-    return collection
-      .aggregate([
-        { $match: { _id: ObjectId(id) } },
-        { $unwind: '$' + localField },
-        {
-          $lookup: {
-            from: fromCollection,
-            localField: localField,
-            foreignField: foreingField,
-            as: asName,
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbcollection)
+        .aggregate([
+          { $match: { _id: ObjectId(id) } },
+          { $unwind: '$' + localField },
+          {
+            $lookup: {
+              from: fromCollection,
+              localField: localField,
+              foreignField: foreingField,
+              as: asName,
+            },
           },
-        },
-        { $unwind: '$' + asName },
-        {
-          $group: {
-            _id: '$_id',
-            revisiones_id: { $push: '$' + localField },
-            revisiones: { $push: '$' + asName },
+          { $unwind: '$' + asName },
+          {
+            $group: {
+              _id: '$_id',
+              revisiones_id: { $push: '$' + localField },
+              revisiones: { $push: '$' + asName },
+            },
           },
-        },
-      ])
-      .toArray();
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
   };
+  
   return MyMongoLib;
 };
 
