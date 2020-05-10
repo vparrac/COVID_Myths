@@ -1,8 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Menu from "./Menu";
 import Pregunta from "./Pregunta";
 
+
 const ForoPreguntas = (props) => {
+
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -74,6 +76,7 @@ const ForoPreguntas = (props) => {
             contenido={"Un contenido"}
             usuario={"Usuario"}
           ></Pregunta>
+          {props.q}
         </div>
       </div>
     </div>

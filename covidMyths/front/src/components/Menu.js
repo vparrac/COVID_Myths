@@ -15,11 +15,11 @@ const Menu = (props) => {
           <a className="active"> Menu </a>
           <Link to="/preguntar">Preguntar</Link>
         </div>
-        <div class="content">
+        <div className="content">
           <Route
             path="/preguntar"
             exact
-            component={() => <ForoPreguntas></ForoPreguntas>}
+            component={() => <ForoPreguntas user={props.user} q={props.q} setq={props.setq}></ForoPreguntas>}
           ></Route>
 
                <Route
