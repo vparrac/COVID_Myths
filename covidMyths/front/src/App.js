@@ -7,7 +7,7 @@ function App() {
   const [hayUsuario, sethayUsuario] = useState(false);
   return (
     <div>
-    {hayUsuario?<Menu></Menu>:<Navbar></Navbar>}      
+    {hayUsuario?<Menu></Menu>:<Navbar setUsuario={sethayUsuario}></Navbar>}      
     </div>
   );
 }
