@@ -5,15 +5,10 @@ import Menu from "../components/Menu";
 import Login from "../components/Login";
 import Footer from "./Footer";
 import Register from "../components/Register";
-import Noticias from "../components/VerNoticias";
+
 
 const Navbar = () => {
   const [img, setimg] = useState("./img/noticias.png");  
-
-  useEffect(() => {
-    setmostrar(true);
-    console.log(mostrar)
-  })
 
   return (
     <div className="container-fluid">
@@ -61,11 +56,8 @@ const Navbar = () => {
         component={() => <Register></Register>}
       ></Route>
 
-      <Route
-        path="/noticias"
-        exact
-        component={() => <Noticias></Noticias>}
-      ></Route>
+
+
       <Footer></Footer>
     </div>
   );
