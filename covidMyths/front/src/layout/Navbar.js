@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
 import Home from "../components/Home";
 import Menu from "../components/Menu";
 import Login from "../components/Login";
 import Footer from "./Footer";
 import Register from "../components/Register";
-import Noticias from "../components/VerNoticias";
+
 
 const Navbar = (props) => {
   const [img, setimg] = useState("./img/noticias.png");  
@@ -56,11 +56,8 @@ const Navbar = (props) => {
         component={() => <Register></Register>}
       ></Route>
 
-      <Route
-        path="/noticias"
-        exact
-        component={() => <Noticias></Noticias>}
-      ></Route>
+
+
       <Footer></Footer>
     </div>
   );

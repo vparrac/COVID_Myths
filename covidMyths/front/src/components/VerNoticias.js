@@ -1,81 +1,95 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import "./Menu.css";
-import Pregunta from "./Pregunta";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import './Menu.css';
+import './VerNoticias.css';
+import { useHistory } from 'react-router-dom';
 
 const Noticias = (props) => {
+  const [noticias, setNoticias] = useState([]);
+  const [page, setPages] = useState(1);
+  const [hayNoticias, setHayNoticias] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
-    props.setmostrar(false);
-  });
+    fetch('/news/getNews', {
+      method: 'GET',
+      qs: {
+        page: 1,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.articles) {
+          setHayNoticias(true);
+          setNoticias(json.articles);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch('/news/getNews?page=' + page, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.articles) {
+          setHayNoticias(true);
+          setNoticias(noticias.concat(json.articles));
+        }
+      });
+  }, [page]);
+
   return (
     <div>
       <div>
-        <div class="sidebar">
-          <a class="active" href="home">
-            Home
-          </a>
-          <a href="#news">Noticias</a>
-          <a href="#contact">Foro</a>
-          <a href="#about">Pérfil</a>
-        </div>
-
-        <div class="content">
-          <div className="container-fluid">
-            <div className="fixed">
-              <nav class="navbar navbar-light">
-                <div className="navbar-brand" to="/"></div>
-
-                <div className="text-right">
-                  <button className="btnLogin">Salir</button>
-                </div>
-              </nav>
-              <div class="card">
-                <div class="card-header">Pregunta algo</div>
-                <div class="card-body">
-                  <blockquote class="blockquote mb-0">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend"></div>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                      />
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend"></div>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                      />
-                    </div>
-                    <footer class="blockquote-footer">
-                      Someone famous in{" "}
-                      <cite title="Source Title">Source Title</cite>
-                    </footer>
-                  </blockquote>
-                  <hr></hr>
-                  <div className="text-right">
-                    <button className="btnLogin">Publicar</button>                    
-                  </div>
-                </div>
+        <div className="container-fluid">
+          <div className="fixed">
+            <nav className="navbar navbar-light">
+              <div className="navbar-brand" to="/">
               </div>
-              <Pregunta
-                title={"Un título"}
-                contenido={"Un contenido"}
-                usuario={"Usuario"}
-              ></Pregunta>
+
+              <div className="text-right">
+                <button className="btnLogin">Salir</button>
+              </div>
+            </nav>
+
+            <div className="row">
+              {noticias
+                ? noticias.map((el, key) => {
+                    return (
+                      <div
+                        key={'noticia' + key}
+                        className="col-sm-12 col-md-6 col-lg-6 col-xl-4"
+                      >
+                        <div
+                          className="card cardBorder"
+                          onClick={() =>
+                            history.push('/verDetalleNoticia', { state: el })
+                          }
+                        >
+                          <img
+                            className="card-img-top"
+                            src={el.urlToImage}
+                            alt="Imagen de noticia"
+                          ></img>
+                          <div className="card-body">
+                            <h5 className="card-title">{el.title}</h5>
+                            <p className="card-text">{el.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                : ''}
             </div>
+            <button className="btnLogin" onClick={() => setPages(page + 1)}>
+              Ver más
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default Noticias;

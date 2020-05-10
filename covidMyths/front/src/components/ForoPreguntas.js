@@ -1,15 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Menu from "./Menu";
 import Pregunta from "./Pregunta";
 
 const ForoPreguntas = (props) => {
-  const onSubmit=(evt)=>{
+
+  const onSubmit = (evt) => {
     evt.preventDefault();
-    const contenido=formRef.current.contenido.value;
-    const titulo=formRef.current.titulo.value;
-    const user= props.user;
-    const pregunta={titulo,contenido,user};
-    console.log(pregunta)
+    const contenido = formRef.current.contenido.value;
+    const titulo = formRef.current.titulo.value;
+    const user = props.user;
+    const pregunta = { titulo, contenido, user };
+    console.log(pregunta);
     fetch("/preguntas/publicarPregunta", {
       method: "POST",
       body: JSON.stringify(pregunta),
@@ -18,8 +19,8 @@ const ForoPreguntas = (props) => {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      console.log(res)
-      console.log('llego')
+      console.log(res);
+      console.log("llego");
     });
   };
   const formRef = useRef();
@@ -54,7 +55,11 @@ const ForoPreguntas = (props) => {
                   </div>
                   <div className="input-group mb-3">
                     <div className="input-group-prepend"></div>
-                    <textarea name="contenido" className="form-control" aria-label="descripcion"></textarea>
+                    <textarea
+                      name="contenido"
+                      className="form-control"
+                      aria-label="descripcion"
+                    ></textarea>
                   </div>
                 </blockquote>
                 <hr></hr>

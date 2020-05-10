@@ -54,7 +54,7 @@ const MongoUtils = () => {
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
     return MongoClient.connect(url).then((client) =>
       client
-        .db(dbName)
+        .db(this.dbName)
         .collection(dbCollection)
         .replaceOne(
           {
@@ -87,14 +87,16 @@ const MongoUtils = () => {
     );
   };
 
-  MyMongoLib.getNewsOfCovid = () => {
+  MyMongoLib.getNewsOfCovid = (page) => {
     return new Promise((resolve, reject) => {
       let options = {
         url: apiUrl,
         qs: {
-          q: 'Covid AND coronaVirus',
-          qInTitle: 'Covid AND Coronavirus',
+          q: 'Covid AND coronavirus',
+          qInTitle: 'Covid AND coronavirus',
           language: 'es',
+          pageSize: 6,
+          page: page,
           apiKey: apiKey,
         },
       };
@@ -144,7 +146,7 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
-  
+
   return MyMongoLib;
 };
 
