@@ -12,10 +12,4 @@ router.get('/getNews', (req,res) => {
 });
 
 
-router.get('/get', (req,res) => {
-  mu.getDocById('5eb6fd002e47652020c2bd03','myth').then(result => {
-    res.send(result);
-  })
-});
-
 module.exports = router;

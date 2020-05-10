@@ -5,7 +5,7 @@ import Menu from "./components/Menu";
 import Pregunta from "./components/Pregunta";
 
 function App() {
-  const [hayUsuario, sethayUsuario] = useState(false);
+  const [hayUsuario, sethayUsuario] = useState(true);
   const [q, setq] = useState("JOA");
   const listarNoticias = (noticiass) => {
     return noticiass.map((elem) => {

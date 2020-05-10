@@ -5,8 +5,8 @@ const request = require('request');
 const MongoUtils = () => {
   const MyMongoLib = this || {};
   const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-  const apiKey = process.env.MONGODB_URI.APIKEY;
-  const apiUrl = process.env.MONGODB_URI.APIURL;
+  const apiKey = process.env.APIKEY;
+  const apiUrl = process.env.APIURL;
   const dbName = process.env.DB
   let db;
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {

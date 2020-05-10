@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Menu.css';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import './VerDetalleNoticia.css';
 
 const VerDetalle = (props) => {
-    const location = useLocation();
-    const news = location.state.state;
-
+  const location = useLocation();
+  const news = location.state.state;
 
   return (
-    <div >
-    {news ? <div>
+    <div>
+      {news ? (
+        <div>
           <div className="container-fluid">
             <div className="fixed">
               <nav className="navbar navbar-light">
@@ -21,26 +22,36 @@ const VerDetalle = (props) => {
                 </div>
               </nav>
 
-
-              <div>
-              <h1>{news.title}</h1>
               <div className="row">
-                <h4>{news.source.name}</h4>
-                <h4>{news.publishedAt}</h4>
+                <div className="col-2"></div>
+                <div className="col-10">
+                  <div className="row">
+                    <h1>{news.title}</h1>
+                  </div>
+                  <div className="row">
+                    <h4>Sitio de la noticia: {news.source.name}</h4>
+                  </div>
+                  <div className="row">
+                    <p>Por: {news.author} </p>
+                  </div>
+                  <div className="row">
+                    <img
+                      src={news.urlToImage}
+                      className="foto-noticia"
+                      alt="Imagen de noticia"
+                    ></img>
+                  </div>
+                  <div className="row">
+                    <p>{news.description}</p>
+                  </div>
+                  <div className="row">
+                    <h5>Seguir leyendo </h5>
+                  </div>
+                  <div className="row">
+                    <a href={news.url}>{news.url}</a>
+                  </div>
+                </div>
               </div>
-              <div className="row">
-                <p>Por:</p>
-                <p>{news.author}</p>
-              </div>
-              <div>
-                <img src={news.urlToImage} alt="Imagen de noticia"></img>
-              </div>
-              <div>
-                <p>{news.content}</p>
-              </div>
-
-              </div>
-
 
               <div className="card">
                 <div className="card-header">Pregunta algo</div>
@@ -79,9 +90,11 @@ const VerDetalle = (props) => {
               </div>
             </div>
           </div>
-        </div> : 'No se escogió una noticia, por favor volver a la página de noticias'}
-      
-      </div>
+        </div>
+      ) : (
+        'No se escogió una noticia, por favor volver a la página de noticias'
+      )}
+    </div>
   );
 };
 
