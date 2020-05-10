@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
 import Home from "../components/Home";
 import Menu from "../components/Menu";
@@ -11,8 +11,13 @@ const Navbar = () => {
   const [img, setimg] = useState("./img/noticias.png");
   const [mostrar, setmostrar] = useState(true);
 
+  useEffect(() => {
+    setmostrar(true);
+    console.log(mostrar)
+  })
+
   return (
-    <div className="container-fluid">
+    <div>
       {mostrar ? (
         <div>
           <nav className="navbar navbar-light">

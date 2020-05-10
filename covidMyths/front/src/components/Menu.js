@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./Menu.css";
 import Pregunta from "./Pregunta";
 
 const Menu = (props) => {
+
+
   useEffect(() => {
     props.setmostrar(false);
-  });
+  },[]);
   return (
     <div>
       <div>
@@ -20,7 +22,7 @@ const Menu = (props) => {
         </div>
 
         <div class="content">
-          <div className="container-fluid">
+          <div>
             <div className="fixed">
               <nav class="navbar navbar-light">
                 <div className="navbar-brand" to="/"></div>
