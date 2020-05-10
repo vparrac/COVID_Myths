@@ -23,7 +23,14 @@ const VerDetalle = (props) => {
               </nav>
 
               <div className="row">
-                <div className="col-2"></div>
+                <div className="col-2">
+                  <div className="row">
+                    <button className="botonVerdad">Verdad</button>
+                  </div>
+                  <div className="row">
+                    <button className="botonMito">Mito</button>
+                  </div>
+                </div>
                 <div className="col-10">
                   <div className="row">
                     <h1>{news.title}</h1>
