@@ -1,15 +1,13 @@
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 const newsRouter = require('./routes/news');
-
-var app = express();
+const configurePassport = require("./passport/passport.js");
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+configurePassport(app);
 
 app.use('/', indexRouter);
 app.use('/news', newsRouter);
@@ -38,6 +39,25 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Credentials", true);
+  
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, X-HTTP-Method-Override, content-Type, Accept, credentials, cache" 
+  );
+  
+  if ("OPTIONS" == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
 });
 
 module.exports = app;

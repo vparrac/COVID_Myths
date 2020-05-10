@@ -9,13 +9,13 @@ const Menu = (props) => {
   return (
     <div>
       <div>
-        <div class="sidebar">
-          <a class="active" href="home">
+        <div className="sidebar">
+          <a className="active" href="home">
             Home
           </a>
           <Link to="/preguntar">PreguntaAlgo</Link>
         </div>
-        <div class="content">
+        <div className="content">
         <Route
         path="/preguntar"
         exact
