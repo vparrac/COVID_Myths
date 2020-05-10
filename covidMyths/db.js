@@ -52,7 +52,7 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
-    return MongoClient.connect(url).then((client) =>
+    return MyMongoLib.connect(url).then((client) =>
       client
         .db(this.dbName)
         .collection(dbCollection)

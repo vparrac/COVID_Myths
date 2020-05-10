@@ -12,6 +12,7 @@ function App() {
       console.log(elem);
       return (
         <Pregunta
+          id={elem._id}
           key={elem._id}
           title={elem.titulo}
           contenido={elem.contenido}

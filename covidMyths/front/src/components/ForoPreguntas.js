@@ -11,7 +11,7 @@ const ForoPreguntas = (props) => {
     const contenido = formRef.current.contenido.value;
     const titulo = formRef.current.titulo.value;
     const user = props.user;
-    const pregunta = { titulo, contenido, user };
+    const pregunta = { titulo, contenido, user, verdad:0, mito:0 };
     console.log(pregunta);
     fetch("/preguntas/publicarPregunta", {
       method: "POST",
@@ -71,11 +71,6 @@ const ForoPreguntas = (props) => {
               </div>
             </div>
           </form>
-          <Pregunta
-            title={"Un título"}
-            contenido={"Un contenido"}
-            usuario={"Usuario"}
-          ></Pregunta>
           {props.q}
         </div>
       </div>
