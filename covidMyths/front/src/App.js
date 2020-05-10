@@ -7,16 +7,24 @@ import Pregunta from "./components/Pregunta";
 function App() {
   const [hayUsuario, sethayUsuario] = useState(false);
   const [q, setq] = useState("JOA");
+  
+  const votarMitoPregunta=(voto, pregunta, usuario)=>{
+    
+  }
+
   const listarNoticias = (noticiass) => {
     return noticiass.map((elem) => {
-      console.log(elem);
+      
       return (
         <Pregunta
+          user={hayUsuario}
           id={elem._id}
           key={elem._id}
           title={elem.titulo}
           contenido={elem.contenido}
-          usuario={elem.user}
+          usuario={elem.usuario}
+          mito={elem.mito}
+          verdad={elem.verdad}
         ></Pregunta>
       );
     });
@@ -28,7 +36,7 @@ function App() {
       .then((res) => res.json())
       .then((json) => {
         const nn = listarNoticias(json);
-        console.log(nn);
+        
         setq(nn);
       });
   }, [hayUsuario]);

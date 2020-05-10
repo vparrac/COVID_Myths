@@ -1,7 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Pregunta.css"
+import "./Pregunta.css";
 const Pregunta = (props) => {
+  const votarVerdad = () => {
+    const q = {
+      id: props.id,
+      titulo: props.titulo,
+      contenido: props.contenido,
+      usuario: props.usuario,
+      verdad: props.verdad + 1,
+      mito: props.mito,
+    };
+    fetch("/preguntas/votarVerdad", {
+      method: "PUT",
+      body: JSON.stringify(q),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+      console.log("llego");
+    });
+  };
+  const votarMentira = () => {
+    const q = {
+      id: props.id,
+      titulo: props.titulo,
+      contenido: props.contenido,
+      usuario: props.usuario,
+      verdad: props.verdad + 1,
+      mito: props.mito,
+    };
+    console.log(q);
+    fetch("/preguntas/votarMentira", {
+      method: "PUT",
+      body: JSON.stringify(q),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+      console.log("llego");
+    });
+  };
+
   return (
     <div>
       <div className="card">
@@ -14,8 +58,12 @@ const Pregunta = (props) => {
         </div>
         <hr></hr>
         <div className="text-right">
-          <button className="botonVerdad">Verdad</button>
-          <button className="botonMito">Mito</button>
+          <button onClick={() => votarVerdad()} className="botonVerdad">
+            {"Verdad: " + props.verdad}
+          </button>
+          <button onClick={() => votarMentira()} className="botonMito">
+            {"Mito: " + props.mito}
+          </button>
         </div>
       </div>
     </div>

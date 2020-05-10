@@ -1,13 +1,13 @@
-require('dotenv').config();
-const { MongoClient, ObjectId } = require('mongodb');
-const request = require('request');
+require("dotenv").config();
+const { MongoClient, ObjectId } = require("mongodb");
+const request = require("request");
 
 const MongoUtils = () => {
   const MyMongoLib = this || {};
-  const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+  const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
   const apiKey = process.env.MONGODB_URI.APIKEY;
   const apiUrl = process.env.MONGODB_URI.APIURL;
-  const dbName = process.env.DB
+  const dbName = process.env.DB;
   let db;
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
     db = client.db(dbName);
@@ -18,9 +18,7 @@ const MongoUtils = () => {
     return client.connect();
   };
 
-  MyMongoLib.insertOneDoc = (doc, dbCollection) => {
-    console.log("INSERT INE DOC");
-    console.log("DOC",doc)
+  MyMongoLib.insertOneDoc = (doc, dbCollection) => {    
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
@@ -52,17 +50,54 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
-    return MyMongoLib.connect(url).then((client) =>
-      client
-        .db(this.dbName)
-        .collection(dbCollection)
-        .replaceOne(
-          {
-            _id: ObjectId(id),
-          },
-          object
-        )
-        .finally(() => client.close())
+    
+    const usuario = "Vamos..";
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $set: { object } }
+          )
+          .catch((err) => console.log(err))
+    );
+  };
+
+  MyMongoLib.votarTrue = (id) => {
+    
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $inc: { verdad: 1 } }
+          )
+          .catch((err) => console.log(err))
+    );
+  };
+
+  MyMongoLib.votarFalse = (id) => {
+    console.log("Votar false")
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $inc: { mito: 1 } }
+          )
+          .catch((err) => console.log(err))
     );
   };
 
@@ -80,7 +115,7 @@ const MongoUtils = () => {
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
-        .collection('login')
+        .collection("login")
         .find({ username: username })
         .toArray()
         .finally(() => client.close())
@@ -92,9 +127,9 @@ const MongoUtils = () => {
       let options = {
         url: apiUrl,
         qs: {
-          q: 'Covid AND coronavirus',
-          qInTitle: 'Covid AND coronavirus',
-          language: 'es',
+          q: "Covid AND coronavirus",
+          qInTitle: "Covid AND coronavirus",
+          language: "es",
           pageSize: 6,
           page: page,
           apiKey: apiKey,
@@ -124,7 +159,7 @@ const MongoUtils = () => {
         .collection(dbcollection)
         .aggregate([
           { $match: { _id: ObjectId(id) } },
-          { $unwind: '$' + localField },
+          { $unwind: "$" + localField },
           {
             $lookup: {
               from: fromCollection,
@@ -133,12 +168,12 @@ const MongoUtils = () => {
               as: asName,
             },
           },
-          { $unwind: '$' + asName },
+          { $unwind: "$" + asName },
           {
             $group: {
-              _id: '$_id',
-              revisiones_id: { $push: '$' + localField },
-              revisiones: { $push: '$' + asName },
+              _id: "$_id",
+              revisiones_id: { $push: "$" + localField },
+              revisiones: { $push: "$" + asName },
             },
           },
         ])
