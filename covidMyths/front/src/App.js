@@ -5,9 +5,10 @@ import Menu from "./components/Menu";
 
 function App() {
   const [hayUsuario, sethayUsuario] = useState(false);
+  
   return (
     <div>
-    {hayUsuario?<Menu></Menu>:<Navbar setUsuario={sethayUsuario}></Navbar>}      
+    {hayUsuario?<Menu user={hayUsuario}></Menu>:<Navbar setUsuario={sethayUsuario}></Navbar>}      
     </div>
   );
 }

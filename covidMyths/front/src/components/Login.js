@@ -1,4 +1,4 @@
-import React,{useRef,useState} from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./Login.css";
 const Login = (props) => {
@@ -24,8 +24,6 @@ const Login = (props) => {
         setMessage(a.statusText);
       }
       if (a.status === 200) {
-        console.log("asds");
-        console.log("Nu");
         props.setUsuario(a.statusText);
       }
     });

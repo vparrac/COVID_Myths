@@ -5,9 +5,13 @@ const request = require('request');
 const MongoUtils = () => {
   const MyMongoLib = this || {};
   const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-  const apiKey = '11c85b7f6c6f4f2594a793eea57c096b';
-  const apiUrl = 'http://newsapi.org/v2/everything';
-  const dbName = 'covidDB';
+  const apiKey = process.env.MONGODB_URI.APIKEY;
+  const apiUrl = process.env.MONGODB_URI.APIURL;
+  const dbName = process.env.DB
+  let db;
+  MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
+    db = client.db(dbName);
+  });
 
   MyMongoLib.connect = (url) => {
     const client = new MongoClient(url, { useUnifiedTopology: true });
@@ -15,6 +19,8 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.insertOneDoc = (doc, dbCollection) => {
+    console.log("INSERT INE DOC");
+    console.log("DOC",doc)
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
@@ -46,7 +52,7 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
-    return MyMongoLib.connect(url).then((client) =>
+    return MongoClient.connect(url).then((client) =>
       client
         .db(dbName)
         .collection(dbCollection)
@@ -66,6 +72,7 @@ const MongoUtils = () => {
         .db(dbName)
         .collection(dbCollection)
         .find({ _id: ObjectId(id) })
+        .toArray()
         .finally(() => client.close())
     );
   };

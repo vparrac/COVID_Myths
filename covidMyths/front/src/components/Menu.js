@@ -5,22 +5,20 @@ import "./Menu.css";
 import Pregunta from "./Pregunta";
 import ForoPreguntas from "./ForoPreguntas";
 
-const Menu = (props) => {
+const Menu = (props) => {  
   return (
     <div>
       <div>
         <div className="sidebar">
-          <a className="active" href="home">
-            Home
-          </a>
-          <Link to="/preguntar">PreguntaAlgo</Link>
+          <a className="active"> Menu </a>
+          <Link to="/preguntar">Preguntar</Link>
         </div>
         <div className="content">
-        <Route
-        path="/preguntar"
-        exact
-        component={() => <ForoPreguntas></ForoPreguntas>}
-      ></Route>
+          <Route
+            path="/preguntar"
+            exact
+            component={() => <ForoPreguntas user={props.user}></ForoPreguntas>}
+          ></Route>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ const indexRouter = require("./routes/index");
 const newsRouter = require("./routes/news");
 const configurePassport = require("./passport/passport.js");
 const authenticationRouter = require("./routes/authentication");
+const preguntasRouter=require('./routes/preguntas')
 const app = express();
 
 // view engine setup
@@ -25,10 +26,14 @@ configurePassport(app);
 app.use("/", indexRouter);
 app.use("/news", newsRouter);
 app.use("/", authenticationRouter);
+app.use("/preguntas",preguntasRouter)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function (err, req, res, next) {
