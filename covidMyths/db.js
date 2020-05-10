@@ -18,7 +18,7 @@ const MongoUtils = () => {
     return client.connect();
   };
 
-  MyMongoLib.insertOneDoc = (doc, dbCollection) => {    
+  MyMongoLib.insertOneDoc = (doc, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
@@ -50,7 +50,6 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
-    
     const usuario = "Vamos..";
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
       (client) =>
@@ -67,8 +66,37 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.deleteDoc = (doc, dbCollection) => {
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection(dbCollection)
+          .remove(doc, {
+            justOne: true,
+          })
+          .catch((err) => console.log(err))
+    );
+  };
+
   MyMongoLib.votarTrue = (id) => {
-    
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $inc: { verdad: 1 } }
+          )
+          .catch((err) => console.log(err))
+    );
+  };
+
+
+  MyMongoLib.votarFalse = (id) => {
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
       (client) =>
         client
@@ -85,7 +113,7 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.votarFalse = (id) => {
-    console.log("Votar false")
+    console.log("Votar false");
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
       (client) =>
         client
@@ -101,6 +129,42 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.noVotarFalse = (id) => {
+    console.log("Votar false");
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $inc: { mito: -1 } }
+          )
+          .catch((err) => console.log(err))
+    );
+  };
+
+  MyMongoLib.noVotarTrue = (id) => {
+    
+    return MongoClient.connect(url, { useUnifiedTopology: true }).then(
+      (client) =>
+        client
+          .db(dbName)
+          .collection("preguntas")
+          .updateOne(
+            {
+              _id: ObjectId(id),
+            },
+            { $inc: { verdad: -1 } }
+          )
+          .catch((err) => console.log(err))
+    );
+  };
+
+
+
   MyMongoLib.getDocById = (id, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
       client
@@ -111,6 +175,18 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
+
+  MyMongoLib.getVotoPregunta = (usuario, pregunta, dbCollection) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .find({ usuario, pregunta })
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.getLoginByUsername = (username) => {
     return MyMongoLib.connect(url).then((client) =>
       client
