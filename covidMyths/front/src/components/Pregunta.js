@@ -4,12 +4,12 @@ import "./Pregunta.css"
 const Pregunta = (props) => {
   return (
     <div>
-      <div class="card">
-        <div class="card-header-ou">{props.title}</div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
+      <div className="card">
+        <div className="card-header-ou">{props.title}</div>
+        <div className="card-body">
+          <blockquote className="blockquote mb-0">
             <p>{props.contenido}</p>
-            <footer class="blockquote-footer">{props.usuario}</footer>
+            <footer className="blockquote-footer">{props.usuario}</footer>
           </blockquote>
         </div>
         <hr></hr>

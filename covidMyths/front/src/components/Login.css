@@ -1,15 +1,33 @@
 .card-2 {
-    height: 270px;
-    width: 400px;
-    border-color: aqua;
+  height: 270px;
+  width: 400px;
+  border-color: aqua;
 }
 
 .card-headerLogin-2 {
-    padding: .75rem 1.25rem;
-    margin-bottom: 0;
-    background-color:#425cb3;
-    font-family: "Gotu",sans-serif;
-    color: #fff;
-    text-align: center;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #425cb3;
+  font-family: "Gotu", sans-serif;
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.err {
+  color: #ffa58c;
+}
+
+h1 {
+  color: #91aaff;
+  font-family: "Lora", serif;
+  text-align: center;
+}
+
+
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;       
+    max-width: 100%;
+    height: auto;
 }

@@ -7,30 +7,22 @@ import ForoPreguntas from './ForoPreguntas';
 import Noticias from '../components/VerNoticias';
 import VerDetalleNoticia from '../components/VerDetalleNoticia';
 
-const Menu = (props) => {
+const Menu = (props) => {  
   return (
     <div>
       <div>
-        <div class="sidebar">
-          <a class="active" href="home">
-            Home
-          </a>
-          <Link to="/preguntar">PreguntaAlgo</Link>
+        <div className="sidebar">
+          <a className="active"> Menu </a>
+          <Link to="/preguntar">Preguntar</Link>
         </div>
-        <div class="content">
+        <div className="content">
           <Route
             path="/preguntar"
             exact
-            component={() => <ForoPreguntas></ForoPreguntas>}
+            component={() => <ForoPreguntas user={props.user} q={props.q} setq={props.setq}></ForoPreguntas>}
           ></Route>
 
-          <Route
-            path="/preguntar"
-            exact
-            component={() => <ForoPreguntas></ForoPreguntas>}
-          ></Route>
-
-          <Route
+               <Route
             path="/noticias"
             exact
             component={() => <Noticias></Noticias>}

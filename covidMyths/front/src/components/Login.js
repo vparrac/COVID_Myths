@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import "./Login.css"
-const Login = () => {
+import "./Login.css";
+const Login = (props) => {
+  const formRef = useRef();
+  const [message, setMessage] = useState("");
+
+  const onLogin = (evt) => {
+    evt.preventDefault();
+    const username = formRef.current.username.value;
+    const password = formRef.current.password.value;
+    const credentials = { username, password };
+    fetch("/singin", {
+      method: "POST",
+      body: JSON.stringify(credentials),
+      headers: {
+        "Content-Type": "application/json",
+        credentials: "include",
+      },
+    }).then((a) => {
+      console.log("llega front");
+      console.log(a);
+      if (a.status === 400) {
+        setMessage(a.statusText);
+      }
+      if (a.status === 200) {
+        props.setUsuario(a.statusText);
+      }
+    });
+  };
   return (
     <div>
       <div className="container">
@@ -11,7 +37,7 @@ const Login = () => {
               <h3>Inicia sesión</h3>
             </div>
             <div className="card-body">
-              <form>
+              <form ref={formRef} onSubmit={onLogin}>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">

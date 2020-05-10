@@ -21,27 +21,27 @@ const Home = (props) => {
       <div className="list">
         <div className="row">
           <div className="col-md-6">
-            <ul class="list-group list-group-flush">
+            <ul className="list-group list-group-flush">
               <button
-                class="list-group-item"
+                className="list-group-item"
                 onClick={() => props.setimg("./img/noticias.png")}
               >
                 Ver las noticias más recientes del coronavirus
               </button>
               <button
-                class="list-group-item"
+                className="list-group-item"
                 onClick={() => props.setimg("./img/falso.png")}
               >
                 Votar si el contenido de una noticias mito o verdad
               </button>
               <button
-                class="list-group-item"
+                className="list-group-item"
                 onClick={() => props.setimg("./img/forum.png")}
               >
                 Hacer una pregunta en el foro de la comunidad
               </button>
               <button
-                class="list-group-item"
+                className="list-group-item"
                 onClick={() => props.setimg("./img/ask.png")}
               >
                 Responder una pregunta hecho por otro miembro de la comunidad
