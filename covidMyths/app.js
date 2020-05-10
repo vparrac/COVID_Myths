@@ -26,7 +26,7 @@ configurePassport(app);
 app.use("/", indexRouter);
 app.use("/news", newsRouter);
 app.use("/", authenticationRouter);
-app.use("/preguntas",preguntasRouter)
+app.use("/preguntas" , preguntasRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
