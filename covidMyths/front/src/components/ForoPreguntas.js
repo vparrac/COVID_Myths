@@ -7,38 +7,38 @@ const ForoPreguntas = () => {
     <div>
       <div className="container-fluid">
         <div className="fixed">
-          <nav class="navbar navbar-light">
+          <nav className="navbar navbar-light">
             <div className="navbar-brand" to="/"></div>
 
             <div className="text-right">
               <button className="btnLogin">Salir</button>
             </div>
           </nav>
-          <div class="card">
-            <div class="card-header">Pregunta algo</div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend"></div>
+          <div className="card">
+            <div className="card-header">Pregunta algo</div>
+            <div className="card-body">
+              <blockquote className="blockquote mb-0">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend"></div>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Username"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend"></div>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend"></div>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Username"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
                 </div>
-                <footer class="blockquote-footer">
+                <footer className="blockquote-footer">
                   Someone famous in{" "}
                   <cite title="Source Title">Source Title</cite>
                 </footer>

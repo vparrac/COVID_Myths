@@ -4,7 +4,7 @@ import Navbar from "./layout/Navbar";
 import Menu from "./components/Menu";
 
 function App() {
-  const [hayUsuario, sethayUsuario] = useState(true);
+  const [hayUsuario, sethayUsuario] = useState(false);
   return (
     <div>
     {hayUsuario?<Menu></Menu>:<Navbar></Navbar>}      
