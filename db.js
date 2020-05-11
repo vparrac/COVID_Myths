@@ -59,8 +59,8 @@ const MongoUtils = () => {
         .db(dbName)
         .collection(dbCollection)
         .find()
-        .sort([['_id', -1]])
-        .limit(100)
+        .sort([["_id", -1]])
+        .limit(600)
         .toArray()
         .finally(() => client.close())
     );

@@ -74,7 +74,7 @@ const Register = () => {
                       <div className="err">{error}</div>
                     </div>
                     <button type="submit" className="btn float-right btnLogin">
-                      Inicio Sesión
+                      Crea una cuenta
                     </button>
                   </form>
                 </div>

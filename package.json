@@ -11,7 +11,7 @@
     "heroku-postbuild": "cd front && yarn install && yarn run build"
   },
   "dependencies": {
-    "bcrypt-nodejs": "^0.0.3",
+    "bcrypt": "^4.0.1",
     "bootstrap": "^4.4.1",
     "concurrently": "^5.2.0",
     "connect-flash": "^0.1.1",
@@ -31,8 +31,8 @@
     "react-scripts": "^3.4.1",
     "reactjs-popup": "^1.5.0",
     "request": "^2.88.2",
-    "ws": "^7.3.0",
-    "sweetalert2": "^9.10.12"
+    "sweetalert2": "^9.10.12",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

@@ -10,11 +10,12 @@ const Comentarios = (props) => {
   const formRef = useRef();
 
   const listarComentarios = (comentarios) => {
-    return comentarios.map((elem,index) => {
-      return(
-      <li key={elem._id} className="list-group-item">
-        {elem.contenido}
-      </li>);
+    return comentarios.map((elem, index) => {
+      return (
+        <li key={elem._id} className="list-group-item">
+          {elem.contenido}
+        </li>
+      );
     });
   };
 
@@ -54,7 +55,21 @@ const Comentarios = (props) => {
       },
     }).then((res) => {
       console.log(res);
-      console.log("llego");
+      const id = props.pregunta;
+      fetch("/preguntas/comentariosUnaPregunta", {
+        method: "POST",
+        body: JSON.stringify({ id: id }),
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          const l = listarComentarios(json);
+          setcomentarios(l);
+        });
     });
   };
   return (
@@ -72,10 +87,11 @@ const Comentarios = (props) => {
         </Modal.Header>
         <Modal.Body>
           <ul className="list-group">
-            <form onClick={comentar} ref={formRef}>
+            <form onSubmit={comentar} ref={formRef}>
               <label>Haz un comentario:</label>
               <div className="input-group mb-3">
                 <textarea
+                  required="true"
                   name="contenido"
                   className="form-control"
                   aria-label="descripcion"
