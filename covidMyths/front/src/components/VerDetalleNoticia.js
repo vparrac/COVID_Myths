@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Menu.css';
 import { useLocation } from 'react-router-dom';
@@ -6,7 +6,85 @@ import './VerDetalleNoticia.css';
 
 const VerDetalle = (props) => {
   const location = useLocation();
-  const news = location.state.state;
+  let news = location.state.state;
+  const [upVotes, setUpVotes] = useState(0);
+  const [downVotes, setDownVotes] = useState(0);
+  const formRef = useRef();
+  const [comentarios, setComentarios] = useState([]);
+
+  useEffect(() => {
+    let obj = {
+      contenido: news.description,
+    };
+    fetch('/news/detalleNewsUpVote', {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.length > 0) {
+          setUpVotes(json[0].total);
+        }
+      });
+    fetch('/news/detalleNewsDownVote', {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.length > 0) {
+          setDownVotes(json[0].total);
+        }
+      });
+  }, []);
+
+  const updateVotes = (upvote) => {
+    if (upvote) {
+      setUpVotes(upVotes + 1);
+    } else {
+      setDownVotes(downVotes + 1);
+    }
+    let obj = {
+      upvote,
+      contenido: news.description,
+    };
+    fetch('/news/detalleNews', {
+      method: 'PUT',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
+  };
+
+  const registrarForm = (evt) => {
+    evt.preventDefault();
+    const formu = formRef.current;
+    const form = {
+      comentario: formu.comentario.value,
+      user: props.user,
+      contenido: news.description,
+    };
+    fetch('/news/registrarComentario', {
+      method: 'POST',
+      body: JSON.stringify(form),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {});
+  };
 
   return (
     <div>
@@ -25,10 +103,20 @@ const VerDetalle = (props) => {
               <div className="row">
                 <div className="col-2">
                   <div className="row">
-                    <button className="botonVerdad">Verdad</button>
+                    <button
+                      onClick={() => updateVotes(true)}
+                      className="botonVerdad"
+                    >
+                      Verdad {upVotes}
+                    </button>
                   </div>
                   <div className="row">
-                    <button className="botonMito">Mito</button>
+                    <button
+                      onClick={() => updateVotes(false)}
+                      className="botonMito"
+                    >
+                      Mito {downVotes}
+                    </button>
                   </div>
                 </div>
                 <div className="col-10">
@@ -62,38 +150,27 @@ const VerDetalle = (props) => {
 
               <div className="card">
                 <div className="card-header">Pregunta algo</div>
-                <div className="card-body">
-                  <blockquote className="blockquote mb-0">
-                    <div className="input-group mb-3">
-                      <div className="input-group-prepend"></div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                      />
+                <form ref={formRef} onSubmit={registrarForm}>
+                  <div className="card-body">
+                    <blockquote className="blockquote mb-0">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend"></div>
+                        <input
+                          type="text"
+                          name="comentario"
+                          className="form-control"
+                          placeholder="Comentario"
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </blockquote>
+                    <hr></hr>
+                    <div className="text-right">
+                      <button className="btnLogin" type="submit">Publicar</button>
                     </div>
-                    <div className="input-group mb-3">
-                      <div className="input-group-prepend"></div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                      />
-                    </div>
-                    <footer className="blockquote-footer">
-                      Someone famous in{' '}
-                      <cite title="Source Title">Source Title</cite>
-                    </footer>
-                  </blockquote>
-                  <hr></hr>
-                  <div className="text-right">
-                    <button className="btnLogin">Publicar</button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
