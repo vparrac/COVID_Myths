@@ -2,7 +2,7 @@
 
 The objective of this application is create a community about truths and lies of COVID-19. Look the main news and verify its content in community.
 
-
+![ezgif-3-a7db9bc9e74f](https://im5.ezgif.com/tmp/ezgif-5-4f553577e836.gif)
 ## Running the website
 Since this application is not a static application, you should have some thinks to do before you can start.
 ### Requirements
