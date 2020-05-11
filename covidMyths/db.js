@@ -28,6 +28,18 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.listenNewQuestions = () => {
+    console.log("Listen for changes");
+
+    return MyMongoLib.connect(url).then((client) => {
+      cursor = client.db("covidDB").collection("preguntas").watch();
+      //console.log(cursor);
+      cursor.on("change",(data)=>{
+        console.log("Mongo Change", data);
+      });
+    });
+  };
+
   MyMongoLib.insertManyDocs = (docs, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
       client
@@ -48,7 +60,6 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
-
 
   MyMongoLib.getDocsByCriteria = (criteria, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
@@ -107,7 +118,6 @@ const MongoUtils = () => {
     );
   };
 
-
   MyMongoLib.votarFalse = (id) => {
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
       (client) =>
@@ -159,7 +169,6 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.noVotarTrue = (id) => {
-    
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
       (client) =>
         client
@@ -174,8 +183,6 @@ const MongoUtils = () => {
           .catch((err) => console.log(err))
     );
   };
-
-
 
   MyMongoLib.getDocById = (id, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>

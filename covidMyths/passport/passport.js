@@ -36,10 +36,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (user, done) => {
-  console.log("Algo")
-  console.log("id:",user.id)
+  
   const usuario = await MongoUtils.getDocById(user.id, "login");  
-  console.log("usuario",usuario)
+  
   done(null, usuario);
 });
 passport.use(

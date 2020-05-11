@@ -8,6 +8,12 @@ const app = require("../app");
 const debug = require("debug")("covidmyths:server");
 const http = require("http");
 
+
+const mu = require("../db");
+const wsu = require("../WSUtils");
+
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -28,6 +34,12 @@ const server = http.createServer(app);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
+
+
+
+mu.listenNewQuestions();
+wsu.setUpWs(server);
+console.log("Se llamo listen");
 
 /**
  * Normalize a port into a number, string, or false.

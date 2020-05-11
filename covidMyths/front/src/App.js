@@ -25,7 +25,21 @@ function App() {
       );
     });
   };
+
+  const setupWS=()=>{
+    const wss= new WebSocket("ws://localhost:3001");
+
+    wss.onopen=()=>{
+      console.log("WS Client connected"); 
+      wss.onmessage=(msg)=>{
+        console.log("WS got mss", msg);
+      }
+    }
+
+  };
+
   useEffect(() => {
+    setupWS();
     fetch("/preguntas/getPreguntas", {
       method: "GET",
     })
