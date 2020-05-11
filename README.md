@@ -11,7 +11,8 @@ Since this application is not a static application, you should have some thinks 
 
 Once you have it installed, run:
 ```
-mongod
+mongod --replSet <a name> --dbpath <path> --port <a port>
+rs.initiate()
 ```
 In order to start the database server
 
@@ -26,10 +27,6 @@ You need to create three environments variables to this project
 On the root folder of the proyect
 
 ```bash
-
-# Run mongodb
-mongodb
-
 # Install dependencies for client
 yarn run client-install
 
