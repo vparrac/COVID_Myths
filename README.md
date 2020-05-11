@@ -21,8 +21,12 @@ In order to start the database server
 You can find the explanation video here <a href="https://www.youtube.com/watch?v=pB0MontNFWU&feature=youtu.be"> here</a>
 **Important information**
 You need to create three environments variables to this project
-- `DATABASE_URL=<yourDatabaseURL>` where yourDatabaseURL is the direction to your database. ExampleDATABASE_URL=mongodb://localhost/name
-- `SECRET_OR_KEY=<secretWord>`: Where secretWord is a String o code that you must save in secret.
+- `SECRET_KEY=<secretWord>`: Where secretWord is a String o code that you must save in secret.
+- `APIKEY=<apiKeyForNewsApi>`: Your apikey for NewsAPI.
+- `APIURL=<APIurl>`: http://newsapi.org/v2/everything.
+- `DB=<YourDb>`: Your db name.
+- `MONGODB_URI=<MongoDb>`: Your connection to mongo.
+
 ### Requirements
 On the root folder of the proyect
 
