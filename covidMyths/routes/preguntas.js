@@ -29,6 +29,11 @@ router.post("/publicarPregunta", (req, res) => {
   });
 });
 
+router.post("/hacerUnComentario", (req, res) => {
+  console.log(req.body);
+  mu.insertOneDoc(req.body, "comentarios").then(() => res.status(200).end());
+});
+
 router.put("/votarVerdad", async (req, res) => {
   //Un usuario sólo vota una vez por una pregunta
   const usuario = req.body.usuario;

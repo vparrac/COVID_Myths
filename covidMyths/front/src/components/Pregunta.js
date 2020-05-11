@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Pregunta.css";
+
+import Comentarios from "./Comentarios";
 const Pregunta = (props) => {
   const votarVerdad = () => {
     const q = {
@@ -64,6 +66,7 @@ const Pregunta = (props) => {
           <button onClick={() => votarMentira()} className="botonMito">
             {"Mito: " + props.mito}
           </button>
+          <Comentarios usuario={props.usuario} pregunta={props.id}></Comentarios>
         </div>
       </div>
     </div>

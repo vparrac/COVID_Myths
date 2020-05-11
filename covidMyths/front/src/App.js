@@ -6,15 +6,11 @@ import Pregunta from "./components/Pregunta";
 
 function App() {
   const [hayUsuario, sethayUsuario] = useState(false);
-  const [q, setq] = useState("JOA");
-  
-  const votarMitoPregunta=(voto, pregunta, usuario)=>{
-    
-  }
-
+  const [q, setq] = useState("");
+  const [show, setShow] = useState(false);
+ 
   const listarNoticias = (noticiass) => {
-    return noticiass.map((elem) => {
-      
+    return noticiass.map((elem) => {      
       return (
         <Pregunta
           user={hayUsuario}
@@ -35,8 +31,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((json) => {
-        const nn = listarNoticias(json);
-        
+        const nn = listarNoticias(json);        
         setq(nn);
       });
   }, [hayUsuario]);
