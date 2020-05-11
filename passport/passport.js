@@ -2,8 +2,10 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 const MongoUtils = require("../db");
-const bcrypt = require("bcrypt-nodejs");
+const bcrypt = require('bcrypt');
 
+
+const BCRYPT_SALT_ROUNDS = 12;
 function configurePassport(app) {
   const flash = require("connect-flash");
   app.use(flash());
@@ -36,10 +38,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (user, done) => {
-  console.log("Algo")
-  console.log("id:",user.id)
+  
   const usuario = await MongoUtils.getDocById(user.id, "login");  
-  console.log("usuario",usuario)
+  
   done(null, usuario);
 });
 passport.use(
@@ -59,8 +60,10 @@ passport.use(
         });
       } else {
         const p = password;
+        const np = await bcrypt.hash(p,BCRYPT_SALT_ROUNDS)
+
         const user = await MongoUtils.insertOneDoc(
-          { username, password: p },
+          { username, password: np },
           "login"
         );
         done(null, [
@@ -84,6 +87,10 @@ passport.use(
     },
     async (req, username, password, done) => {
       const userdb = await MongoUtils.getLoginByUsername(username);
+      
+      const np = await bcrypt.hash(password,BCRYPT_SALT_ROUNDS).then((a)=>console.log);
+      const bol = await bcrypt.compare(password, userdb[0].password);
+      
 
       if (userdb.length < 1) {
         return done(
@@ -92,7 +99,7 @@ passport.use(
           req.flash("signinMessage", "Usuario o contraseña incorrectos")
         );
       }
-      if (password !== userdb[0].password) {
+      if (!bol) {
         return done(
           null,
           false,

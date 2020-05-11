@@ -18,7 +18,7 @@ const passport = require("passport");
 
 router.post("/signup", (req, res, next) => {
   passport.authenticate("local-signup", function (err, user, info) {
-    console.log(info);
+    
     if (user === false) {
       res.statusMessage = info.mensaje;
       res.status(400).end();
@@ -41,7 +41,7 @@ router.post("/singin", (req, res, next) => {
         }
 
         res.statusMessage = req.user[0]._id;
-        console.log(req.user[0]);
+        
         res.json({ id: req.user[0]._id });
         res.status(200).end();
       });

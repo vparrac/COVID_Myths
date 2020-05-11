@@ -5,7 +5,6 @@ const mu = require("../db.js");
 
 router.get("/getPreguntas", (req, res) => {
   mu.getDocs("preguntas").then((promise) => {
-    console.log("P", promise);
     res.send(promise);
   });
 });
@@ -16,9 +15,8 @@ router.post("/publicarPregunta", (req, res) => {
   const contenido = req.body.contenido;
   const verdad = req.body.verdad;
   const mito = req.body.mito;
-  console.log("usuario cuerpo ", req.body);
+
   mu.getDocById(user, "login").then((u) => {
-    console.log("Usuario DB", u);
     const usuario = u[0].username;
     mu.insertOneDoc(
       { titulo, contenido, usuario, verdad, mito },
@@ -30,7 +28,6 @@ router.post("/publicarPregunta", (req, res) => {
 });
 
 router.post("/hacerUnComentario", (req, res) => {
-  console.log(req.body);
   mu.insertOneDoc(req.body, "comentarios").then(() => res.status(200).end());
 });
 
@@ -50,7 +47,6 @@ router.put("/votarVerdad", async (req, res) => {
               await mu.noVotarFalse(pregunta);
               res.status(200).end();
             } else {
-              console.log("Borrando");
               mu.insertOneDoc({ usuario, pregunta }, "votos").then(async () => {
                 res.status(200).end();
               });
@@ -83,7 +79,6 @@ router.put("/votarMentira", async (req, res) => {
               await mu.noVotarTrue(pregunta);
               res.status(200).end();
             } else {
-              console.log("Borrando");
               mu.insertOneDoc({ usuario, pregunta }, "votos").then(async () => {
                 res.status(200).end();
               });
@@ -94,6 +89,14 @@ router.put("/votarMentira", async (req, res) => {
   } else {
     res.status(200).end();
   }
+});
+
+router.post("/comentariosUnaPregunta", (req, res) => {
+  const criteria = { pregunta: req.body.id };
+
+  mu.getDocsByCriteria(criteria, "comentarios").then((respuesta) => {
+    res.send(respuesta);
+  });
 });
 
 module.exports = router;

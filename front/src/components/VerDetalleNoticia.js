@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import './Menu.css';
-import { useLocation } from 'react-router-dom';
-import './VerDetalleNoticia.css';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
+import "./Menu.css";
+import { useLocation } from "react-router-dom";
+import "./VerDetalleNoticia.css";
+import Swal from "sweetalert2";
 
 const VerDetalle = (props) => {
   const location = useLocation();
@@ -16,23 +16,39 @@ const VerDetalle = (props) => {
   const [limSup, setLimSup] = useState(6);
   const [numberOfPages, setPages] = useState(0);
 
+  const saliendo = () => {
+    console.log("Intentando salir");
+    fetch("/salir", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+      if (res.status == 200) {
+        props.setUser(false);
+      }
+    });
+  };
+
   const parentCallback = (inf, sup) => {
     let obj = {
       contenido: news.description,
       limInf: inf,
-      limSup: sup
+      limSup: sup,
     };
-    fetch('/news/getComentarios', {
-      method: 'POST',
+    fetch("/news/getComentarios", {
+      method: "POST",
       body: JSON.stringify(obj),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((json) => {
-        if(json.length > 0 && json[0].comentarios.length > 0){
-          setComentarios(json[0].comentarios)
+        if (json.length > 0 && json[0].comentarios.length > 0) {
+          setComentarios(json[0].comentarios);
         }
       });
   };
@@ -46,11 +62,11 @@ const VerDetalle = (props) => {
       limInf: limInf,
       limSup: limSup,
     };
-    fetch('/news/detalleNewsUpVote', {
-      method: 'POST',
+    fetch("/news/detalleNewsUpVote", {
+      method: "POST",
       body: JSON.stringify(obj),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -59,11 +75,11 @@ const VerDetalle = (props) => {
           setUpVotes(json[0].total);
         }
       });
-    fetch('/news/detalleNewsDownVote', {
-      method: 'POST',
+    fetch("/news/detalleNewsDownVote", {
+      method: "POST",
       body: JSON.stringify(obj),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -72,11 +88,11 @@ const VerDetalle = (props) => {
           setDownVotes(json[0].total);
         }
       });
-    fetch('/news/getComentarios', {
-      method: 'POST',
+    fetch("/news/getComentarios", {
+      method: "POST",
       body: JSON.stringify(obj2),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -85,17 +101,17 @@ const VerDetalle = (props) => {
           setComentarios(json[0].comentarios);
         }
       });
-    fetch('/news/getNumComentarios', {
-      method: 'POST',
+    fetch("/news/getNumComentarios", {
+      method: "POST",
       body: JSON.stringify(obj),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((json) => {
         if (json.length > 0 && json[0].num_comentarios > 0) {
-          console.log(Math.ceil(json[0].num_comentarios / 6))
+          console.log(Math.ceil(json[0].num_comentarios / 6));
           setPages(Math.ceil(json[0].num_comentarios / 6));
         }
       });
@@ -111,11 +127,11 @@ const VerDetalle = (props) => {
       upvote,
       contenido: news.description,
     };
-    fetch('/news/detalleNews', {
-      method: 'PUT',
+    fetch("/news/detalleNews", {
+      method: "PUT",
       body: JSON.stringify(obj),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -132,17 +148,17 @@ const VerDetalle = (props) => {
       user: props.user,
       contenido: news.description,
     };
-    fetch('/news/registrarComentario', {
-      method: 'POST',
+    fetch("/news/registrarComentario", {
+      method: "POST",
       body: JSON.stringify(form),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((json) => {
-        Swal.fire('Comentario creado con exito', '', 'success');
-        formu.comentario.value = '';
+        Swal.fire("Comentario creado con exito", "", "success");
+        formu.comentario.value = "";
       });
   };
 
@@ -151,7 +167,7 @@ const VerDetalle = (props) => {
     for (let i = 0; i < numberOfPages; i = i + 1) {
       li.push(
         <Pagination
-          key={'page' + i}
+          key={"page" + i}
           page={i}
           limInf={limInf}
           limSup={limSup}
@@ -172,7 +188,7 @@ const VerDetalle = (props) => {
                 <div className="navbar-brand" to="/"></div>
 
                 <div className="text-right">
-                  <button className="btnLogin">Salir</button>
+                <button className="btnLogin" onClick={saliendo}>Salir</button>
                 </div>
               </nav>
 
@@ -254,7 +270,7 @@ const VerDetalle = (props) => {
                 {comentarios ? (
                   comentarios.map((el, key) => {
                     return (
-                      <div className="row" key={'comentario' + key}>
+                      <div className="row" key={"comentario" + key}>
                         <div className="col-12">
                           <div className="row">
                             <p className="usuario">{el.usuario}</p>
@@ -297,14 +313,14 @@ const VerDetalle = (props) => {
                     <div className="col-4">
                       <nav aria-label="Page navigation example">
                         <ul className="pagination">
-                          {numberOfPages > 0 ? drawLi() : ''}
+                          {numberOfPages > 0 ? drawLi() : ""}
 
                           {limSup / 6 >= numberOfPages ? (
                             <li className="page-item">
                               <button className="page-link">Next</button>
                             </li>
                           ) : (
-                            ''
+                            ""
                           )}
                         </ul>
                       </nav>
@@ -312,14 +328,14 @@ const VerDetalle = (props) => {
                     <div className="col-4"></div>
                   </div>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
             </div>
           </div>
         </div>
       ) : (
-        'No se escogió una noticia, por favor volver a la página de noticias'
+        "No se escogió una noticia, por favor volver a la página de noticias"
       )}
     </div>
   );

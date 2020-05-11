@@ -65,7 +65,7 @@ const Login = (props) => {
                   />
                 </div>
                 <div>
-                  <div className="err"></div>
+                  <div className="err">{message}</div>
                 </div>
                 <button type="submit" className="btn float-right btnLogin">
                   Inicio Sesión

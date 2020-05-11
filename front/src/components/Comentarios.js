@@ -1,12 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button } from "react-bootstrap";
 import "./Comentarios.css";
 const Comentarios = (props) => {
   const [show, setShow] = useState(false);
+  const [comentarios, setcomentarios] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const formRef = useRef();
+
+  const listarComentarios = (comentarios) => {
+    return comentarios.map((elem, index) => {
+      return (
+        <li key={elem._id} className="list-group-item">
+          {elem.contenido}
+        </li>
+      );
+    });
+  };
+
+  useEffect(() => {
+    const id = props.pregunta;
+    fetch("/preguntas/comentariosUnaPregunta", {
+      method: "POST",
+      body: JSON.stringify({ id: id }),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        const l = listarComentarios(json);
+        setcomentarios(l);
+      });
+  }, [show]);
+
   const comentar = (evt) => {
     evt.preventDefault();
     console.log(props);
@@ -25,7 +55,21 @@ const Comentarios = (props) => {
       },
     }).then((res) => {
       console.log(res);
-      console.log("llego");
+      const id = props.pregunta;
+      fetch("/preguntas/comentariosUnaPregunta", {
+        method: "POST",
+        body: JSON.stringify({ id: id }),
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          const l = listarComentarios(json);
+          setcomentarios(l);
+        });
     });
   };
   return (
@@ -43,10 +87,11 @@ const Comentarios = (props) => {
         </Modal.Header>
         <Modal.Body>
           <ul className="list-group">
-            <form onClick={comentar} ref={formRef}>
+            <form onSubmit={comentar} ref={formRef}>
               <label>Haz un comentario:</label>
               <div className="input-group mb-3">
                 <textarea
+                  required="true"
                   name="contenido"
                   className="form-control"
                   aria-label="descripcion"
@@ -64,8 +109,8 @@ const Comentarios = (props) => {
             </form>
             <br></br>
             <br></br>
-            <li className="list-group-item">Cras justo odio</li>
           </ul>
+          <ul className="list-group">{comentarios}</ul>
         </Modal.Body>
         <Modal.Footer>
           <button

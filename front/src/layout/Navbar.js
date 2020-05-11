@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import Home from "../components/Home";
 import Menu from "../components/Menu";
 import Login from "../components/Login";
 import Footer from "./Footer";
 import Register from "../components/Register";
 
-
 const Navbar = (props) => {
-  const [img, setimg] = useState("./img/noticias.png");  
+  const [img, setimg] = useState("./img/noticias.png");
 
   return (
     <div className="container-fluid">
@@ -42,13 +41,13 @@ const Navbar = (props) => {
         component={() => <Home img={img} setimg={setimg}></Home>}
       ></Route>
 
-      <Route
-        path="/menu"
-        exact
-        component={() => <Menu></Menu>}
-      ></Route>
+      <Route path="/menu" exact component={() => <Menu></Menu>}></Route>
 
-      <Route path="/login" exact component={() => <Login setUsuario={props.setUsuario}></Login>}></Route>
+      <Route
+        path="/login"
+        exact
+        component={() => <Login setUsuario={props.setUsuario}></Login>}
+      ></Route>
 
       <Route
         path="/register"
@@ -56,7 +55,7 @@ const Navbar = (props) => {
         component={() => <Register></Register>}
       ></Route>
 
-
+      <Redirect to="/" />
 
       <Footer></Footer>
     </div>

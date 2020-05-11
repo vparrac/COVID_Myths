@@ -1,4 +1,20 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
 .botonVerdad {
+  width: 10;
   font-family: "Lora", serif;
   display: inline-block;
   font-weight: 400;
@@ -11,6 +27,10 @@
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
   border-top-color: transparent;
   border-right-color: transparent;
   border-bottom-color: transparent;
@@ -27,16 +47,14 @@
   font-size: 1.2rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: #1C290D;
   border-color: rgb(184, 255, 90);
-}
+  }
 
-.botonMito:hover{
-    background-color: #FFA58C;
-}
-.botonMito {
+
+  .botonMito {
+    width: 10;
     font-family: "Lora", serif;
     display: inline-block;
     font-weight: 400;
@@ -74,4 +92,5 @@
 .botonVerdad:hover {
     background-color: rgb(184, 255, 90);
 }
+
 
