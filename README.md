@@ -1,6 +1,6 @@
 # COVID_Myths
 
-The objective of this application is create a community about truths and lies of COVID-19. Look the main news and verify its content in community.
+The objective of this application is to create a community about truths and lies of COVID-19. Look the main news and verify its content in community. You can also create questions regarding the COVID-19 and people can vote for them or answer them.
 
 ![Captura](https://user-images.githubusercontent.com/32238112/81584831-e543b600-9378-11ea-8407-e82bb3601cc6.PNG)
 ## Running the website
