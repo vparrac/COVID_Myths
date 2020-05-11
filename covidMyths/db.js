@@ -63,8 +63,7 @@ const MongoUtils = () => {
     });
   };
 
-
-  MyMongoLib.registrarComentario = (usuario, text, comentario) => { 
+  MyMongoLib.registrarComentario = (usuario, text, comentario) => {
     return MyMongoLib.connect(url).then((client) => {
       client
         .db(dbName)
@@ -76,9 +75,7 @@ const MongoUtils = () => {
         )
         .finally(() => client.close());
     });
-  }
-
- 
+  };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
     const usuario = 'Vamos..';
@@ -125,8 +122,6 @@ const MongoUtils = () => {
           .catch((err) => console.log(err))
     );
   };
-
-  
 
   MyMongoLib.votarFalse = (id) => {
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(
@@ -216,6 +211,19 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.getComentariosPaginados = (text, limInf, limSup) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection('detalleNoticia')
+        .aggregate([
+          {$match:{ contenido: text }},
+          {$project: { comentarios: {$slice: ['$comentarios',limInf, limSup]}}}
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
 
   MyMongoLib.getUpVotesByText = (text) => {
     return MyMongoLib.connect(url).then((client) =>
@@ -223,14 +231,28 @@ const MongoUtils = () => {
         .db(dbName)
         .collection('detalleNoticia')
         .aggregate([
-          { $match: { contenido: text}},
-          { $unwind: "$votos" },
-          { $match: { "votos.voto": true}},
-          { $count: "total" }
+          { $match: { contenido: text } },
+          { $unwind: '$votos' },
+          { $match: { 'votos.voto': true } },
+          { $count: 'total' },
         ])
         .toArray()
     );
-  }
+  };
+
+  MyMongoLib.getTamanioComentarios = (text) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection('detalleNoticia')
+        .aggregate([
+          { $match: { contenido: text } },
+          { $project: { num_comentarios: { $size: '$comentarios' } } },
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
 
   MyMongoLib.getDownVotesByText = (text) => {
     return MyMongoLib.connect(url).then((client) =>
@@ -238,15 +260,15 @@ const MongoUtils = () => {
         .db(dbName)
         .collection('detalleNoticia')
         .aggregate([
-          { $match: { contenido: text}},
-          { $unwind: "$votos" },
-          { $match: { "votos.voto": false}},
-          { $count: "total" }
+          { $match: { contenido: text } },
+          { $unwind: '$votos' },
+          { $match: { 'votos.voto': false } },
+          { $count: 'total' },
         ])
         .toArray()
+        .finally(() => client.close())
     );
-  }
-
+  };
 
   MyMongoLib.getVotoPregunta = (usuario, pregunta, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
@@ -258,8 +280,6 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
-
-
 
   MyMongoLib.getLoginByUsername = (username) => {
     return MyMongoLib.connect(url).then((client) =>

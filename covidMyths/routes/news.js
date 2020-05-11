@@ -24,8 +24,9 @@ router.post('/detalleNewsUpVote', (req, res) => {
   });
 });
 
-router.psot('/detalleNews', (req, res) => {
-  mu.getDocByText(req.body.contenido).then((result) => {
+router.post('/getComentarios', (req, res) => {
+  console.log( req.body.limInf, req.body.limSup)
+  mu.getComentariosPaginados(req.body.contenido, req.body.limInf, req.body.limSup).then((result) => {
     res.send(result);
   });
 });
@@ -47,5 +48,11 @@ router.post('/registrarComentario', (req, res) => {
     });
   });
 });
+
+router.post('/getNumComentarios', (req,res) => {
+  mu.getTamanioComentarios(req.body.contenido).then(result => {
+    res.send(result);
+  });
+})
 
 module.exports = router;
