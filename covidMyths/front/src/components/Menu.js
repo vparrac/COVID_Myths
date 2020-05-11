@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
-import './Menu.css';
-import Pregunta from './Pregunta';
-import ForoPreguntas from './ForoPreguntas';
-import Noticias from '../components/VerNoticias';
-import VerDetalleNoticia from '../components/VerDetalleNoticia';
+import React, { Redirect } from "react";
+import PropTypes from "prop-types";
+import { Route, Link } from "react-router-dom";
+import "./Menu.css";
+import Pregunta from "./Pregunta";
+import ForoPreguntas from "./ForoPreguntas";
+import Noticias from "../components/VerNoticias";
+import VerDetalleNoticia from "../components/VerDetalleNoticia";
 
-const Menu = (props) => {  
+const Menu = (props) => {
   return (
     <div>
       <div>
@@ -19,10 +19,16 @@ const Menu = (props) => {
           <Route
             path="/preguntar"
             exact
-            component={() => <ForoPreguntas user={props.user} q={props.q} setUser={props.setUser}></ForoPreguntas>}
+            component={() => (
+              <ForoPreguntas
+                user={props.user}
+                q={props.q}
+                setUser={props.setUser}
+              ></ForoPreguntas>
+            )}
           ></Route>
 
-               <Route
+          <Route
             path="/noticias"
             exact
             component={() => <Noticias></Noticias>}
@@ -33,6 +39,7 @@ const Menu = (props) => {
             exact
             component={() => <VerDetalleNoticia></VerDetalleNoticia>}
           ></Route>
+
         </div>
       </div>
     </div>

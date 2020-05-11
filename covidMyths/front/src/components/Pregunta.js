@@ -51,7 +51,7 @@ const Pregunta = (props) => {
   return (
     <div>
       <div className="card">
-        <div className="card-header-ou">{props.title}</div>
+        <div className={ props.verdad>props.mito?"card-header-ou":"card-header-pu"}>{props.title}</div>
         <div className="card-body">
           <blockquote className="blockquote mb-0">
             <p>{props.contenido}</p>

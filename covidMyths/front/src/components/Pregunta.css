@@ -75,3 +75,14 @@
     background-color: rgb(184, 255, 90);
 }
 
+
+
+.card-header-pu{
+  font-family: 'Lora', serif;
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  font-size: x-large;
+  background-color: #ffa58c;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  color: black;
+}
