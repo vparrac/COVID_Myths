@@ -8,9 +8,9 @@ function App() {
   const [hayUsuario, sethayUsuario] = useState(false);
   const [q, setq] = useState("");
   const [show, setShow] = useState(false);
- 
+
   const listarNoticias = (noticiass) => {
-    return noticiass.map((elem) => {      
+    return noticiass.map((elem) => {
       return (
         <Pregunta
           user={hayUsuario}
@@ -26,16 +26,16 @@ function App() {
     });
   };
 
-  const setupWS=()=>{
-    const wss= new WebSocket("ws://localhost:3001");
+  const setupWS = () => {
+    const wss = new WebSocket("ws://localhost:3001");
 
-    wss.onopen=()=>{
-      console.log("WS Client connected"); 
-      wss.onmessage=(msg)=>{
-        console.log("WS got mss", msg);
-      }
-    }
-
+    wss.onopen = () => {
+      console.log("WS Client connected");
+      wss.onmessage = (msg) => {
+        const l= listarNoticias(JSON.parse(msg.data));
+        setq(l);
+      };
+    };
   };
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((json) => {
-        const nn = listarNoticias(json);        
+        const nn = listarNoticias(json);
         setq(nn);
       });
   }, [hayUsuario]);

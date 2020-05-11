@@ -34,7 +34,7 @@ const Comentarios = (props) => {
         const l = listarComentarios(json);
         setcomentarios(l);
       });
-  }, []);
+  }, [show]);
 
   const comentar = (evt) => {
     evt.preventDefault();

@@ -28,14 +28,17 @@ const MongoUtils = () => {
     );
   };
 
-  MyMongoLib.listenNewQuestions = () => {
+  MyMongoLib.listenNewQuestions = (notifyAll) => {
     console.log("Listen for changes");
 
     return MyMongoLib.connect(url).then((client) => {
-      cursor = client.db("covidDB").collection("preguntas").watch();
+      const cursor = client.db("covidDB").collection("preguntas").watch();
       //console.log(cursor);
-      cursor.on("change", (data) => {
-        console.log("Mongo Change", data);
+      cursor.on("change", (data) => {        
+        MyMongoLib.getDocs("preguntas").then((docs) => {
+          console.log("PR",docs);
+          notifyAll(JSON.stringify(docs));
+        });
       });
     });
   };
@@ -55,7 +58,9 @@ const MongoUtils = () => {
       client
         .db(dbName)
         .collection(dbCollection)
-        .find({})
+        .find()
+        .sort([['_id', -1]])
+        .limit(100)
         .toArray()
         .finally(() => client.close())
     );

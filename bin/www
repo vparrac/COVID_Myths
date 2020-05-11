@@ -37,7 +37,7 @@ server.on("listening", onListening);
 
 
 
-mu.listenNewQuestions();
+mu.listenNewQuestions(wsu.notifyAll);
 wsu.setUpWs(server);
 console.log("Se llamo listen");
 
