@@ -2,16 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import Menu from "./Menu";
 import Pregunta from "./Pregunta";
 
-
 const ForoPreguntas = (props) => {
-
-
   const onSubmit = (evt) => {
     evt.preventDefault();
     const contenido = formRef.current.contenido.value;
     const titulo = formRef.current.titulo.value;
     const user = props.user;
-    const pregunta = { titulo, contenido, user, verdad:0, mito:0 };
+    const pregunta = { titulo, contenido, user, verdad: 0, mito: 0 };
     console.log(pregunta);
     fetch("/preguntas/publicarPregunta", {
       method: "POST",
@@ -44,8 +41,6 @@ const ForoPreguntas = (props) => {
               <div className="card-body">
                 <blockquote className="blockquote mb-0">
                   <div className="input-group mb-3">
-                    <div className="input-group-prepend"></div>
-
                     <input
                       type="text"
                       className="form-control"
@@ -56,7 +51,6 @@ const ForoPreguntas = (props) => {
                     />
                   </div>
                   <div className="input-group mb-3">
-                    <div className="input-group-prepend"></div>
                     <textarea
                       name="contenido"
                       className="form-control"
