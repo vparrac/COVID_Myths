@@ -49,6 +49,18 @@ const MongoUtils = () => {
     );
   };
 
+
+  MyMongoLib.getDocsByCriteria = (criteria, dbCollection) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .find(criteria)
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
     const usuario = "Vamos..";
     return MongoClient.connect(url, { useUnifiedTopology: true }).then(

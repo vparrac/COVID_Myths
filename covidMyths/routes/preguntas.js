@@ -96,4 +96,17 @@ router.put("/votarMentira", async (req, res) => {
   }
 });
 
+router.post("/comentariosUnaPregunta", (req, res) => {
+  console.log("COMENTARIOS PREGUNTA");
+  
+  const criteria = { pregunta: req.body.id };
+  console.log(criteria);
+  mu.getDocsByCriteria(criteria, "comentarios").then(
+    (respuesta)=>{      
+      res.send(respuesta);
+    }
+  );
+  
+});
+
 module.exports = router;

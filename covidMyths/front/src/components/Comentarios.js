@@ -1,12 +1,41 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button } from "react-bootstrap";
 import "./Comentarios.css";
 const Comentarios = (props) => {
   const [show, setShow] = useState(false);
+  const [comentarios, setcomentarios] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const formRef = useRef();
+
+  const listarComentarios = (comentarios) => {
+    return comentarios.map((elem,index) => {
+      return(
+      <li key={elem._id} className="list-group-item">
+        {elem.contenido}
+      </li>);
+    });
+  };
+
+  useEffect(() => {
+    const id = props.pregunta;
+    fetch("/preguntas/comentariosUnaPregunta", {
+      method: "POST",
+      body: JSON.stringify({ id: id }),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        const l = listarComentarios(json);
+        setcomentarios(l);
+      });
+  }, []);
+
   const comentar = (evt) => {
     evt.preventDefault();
     console.log(props);
@@ -64,8 +93,8 @@ const Comentarios = (props) => {
             </form>
             <br></br>
             <br></br>
-            <li className="list-group-item">Cras justo odio</li>
           </ul>
+          <ul className="list-group">{comentarios}</ul>
         </Modal.Body>
         <Modal.Footer>
           <button
