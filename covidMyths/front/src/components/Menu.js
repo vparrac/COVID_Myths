@@ -19,7 +19,7 @@ const Menu = (props) => {
           <Route
             path="/preguntar"
             exact
-            component={() => <ForoPreguntas user={props.user} q={props.q}></ForoPreguntas>}
+            component={() => <ForoPreguntas user={props.user} q={props.q} setUser={props.setUser}></ForoPreguntas>}
           ></Route>
 
                <Route

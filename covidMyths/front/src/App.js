@@ -39,7 +39,7 @@ function App() {
   return (
     <div>
       {hayUsuario ? (
-        <Menu user={hayUsuario} q={q}></Menu>
+        <Menu user={hayUsuario} q={q} setUser={sethayUsuario}></Menu>
       ) : (
         <Navbar setUsuario={sethayUsuario}></Navbar>
       )}
