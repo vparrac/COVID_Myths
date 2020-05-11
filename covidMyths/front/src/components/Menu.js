@@ -14,7 +14,7 @@ const Menu = (props) => {
         <div className="sidebar">
           <a className="active"> Menu </a>
           <Link to="/preguntar">Preguntar</Link>
-          <Link to="/noticias">Noticias</Link>
+          <Link to="/#/noticias">Noticias</Link>
         </div>
         <div className="content">
           <Route
@@ -24,7 +24,7 @@ const Menu = (props) => {
           ></Route>
 
                <Route
-            path="/noticias"
+            path="/#/noticias"
             exact
             component={() => <Noticias></Noticias>}
           ></Route>
