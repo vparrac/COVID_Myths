@@ -5,8 +5,8 @@ const request = require("request");
 const MongoUtils = () => {
   const MyMongoLib = this || {};
   const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
-  const apiKey = process.env.MONGODB_URI.APIKEY;
-  const apiUrl = process.env.MONGODB_URI.APIURL;
+  const apiKey = process.env.APIKEY;
+  const apiUrl = process.env.APIURL;
   const dbName = process.env.DB;
   let db;
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
@@ -34,7 +34,7 @@ const MongoUtils = () => {
     return MyMongoLib.connect(url).then((client) => {
       cursor = client.db("covidDB").collection("preguntas").watch();
       //console.log(cursor);
-      cursor.on("change",(data)=>{
+      cursor.on("change", (data) => {
         console.log("Mongo Change", data);
       });
     });
@@ -70,6 +70,33 @@ const MongoUtils = () => {
         .toArray()
         .finally(() => client.close())
     );
+  };
+  MyMongoLib.updateNoticia = (text, upvote) => {
+    return MyMongoLib.connect(url).then((client) => {
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .findOneAndUpdate(
+          { contenido: text },
+          { $push: { votos: { usuario: "1", voto: upvote } } },
+          { upsert: true, returnOriginal: false }
+        )
+        .finally(() => client.close());
+    });
+  };
+
+  MyMongoLib.registrarComentario = (usuario, text, comentario) => {
+    return MyMongoLib.connect(url).then((client) => {
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .findOneAndUpdate(
+          { contenido: text },
+          { $push: { comentarios: { usuario, comentario } } },
+          { upsert: true, returnOriginal: false }
+        )
+        .finally(() => client.close());
+    });
   };
 
   MyMongoLib.updateDoc = (id, object, dbCollection) => {
@@ -195,6 +222,80 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.getDocByText = (text) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .find({ contenido: text })
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.getComentariosPaginados = (text, limInf, limSup) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .aggregate([
+          { $match: { contenido: text } },
+          {
+            $project: {
+              comentarios: { $slice: ["$comentarios", limInf, limSup] },
+            },
+          },
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.getUpVotesByText = (text) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .aggregate([
+          { $match: { contenido: text } },
+          { $unwind: "$votos" },
+          { $match: { "votos.voto": true } },
+          { $count: "total" },
+        ])
+        .toArray()
+    );
+  };
+
+  MyMongoLib.getTamanioComentarios = (text) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .aggregate([
+          { $match: { contenido: text } },
+          { $project: { num_comentarios: { $size: "$comentarios" } } },
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.getDownVotesByText = (text) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .aggregate([
+          { $match: { contenido: text } },
+          { $unwind: "$votos" },
+          { $match: { "votos.voto": false } },
+          { $count: "total" },
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.getVotoPregunta = (usuario, pregunta, dbCollection) => {
     return MyMongoLib.connect(url).then((client) =>
       client
@@ -272,7 +373,6 @@ const MongoUtils = () => {
             },
           },
         ])
-        .toArray()
         .finally(() => client.close())
     );
   };

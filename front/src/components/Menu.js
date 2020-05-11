@@ -14,6 +14,7 @@ const Menu = (props) => {
         <div className="sidebar">
           <a className="active"> Menu </a>
           <Link to="/preguntar">Preguntar</Link>
+          <Link to="/noticias">Noticias</Link>
         </div>
         <div className="content">
           <Route
@@ -26,20 +27,20 @@ const Menu = (props) => {
                 setUser={props.setUser}
               ></ForoPreguntas>
             )}
-          ></Route>
-
+          ></Route>x
           <Route
             path="/noticias"
             exact
-            component={() => <Noticias></Noticias>}
+            component={() => <Noticias  setUser={props.setUser}></Noticias>}
           ></Route>
 
           <Route
             path="/verDetalleNoticia"
             exact
-            component={() => <VerDetalleNoticia></VerDetalleNoticia>}
+            component={() => (
+              <VerDetalleNoticia user={props.user}></VerDetalleNoticia>
+            )}
           ></Route>
-
         </div>
       </div>
     </div>
