@@ -16,8 +16,8 @@ mongod
 In order to start the database server
 
 ## Video
-TODO: Cambiar el video
-![Explanation video](https://www.youtube.com/watch?v=ckbztljtAP4&feature=youtu.be)
+
+![Explanation video](https://www.youtube.com/watch?v=pB0MontNFWU&feature=youtu.be)
 
 
 **Important information**
