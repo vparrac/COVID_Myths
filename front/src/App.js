@@ -27,7 +27,7 @@ function App() {
   };
 
   const setupWS = () => {
-    const wss = new WebSocket("ws://localhost:3001");
+    const wss = new WebSocket( process.env.public_url|| "ws://localhost:3001");
 
     wss.onopen = () => {
       console.log("WS Client connected");
