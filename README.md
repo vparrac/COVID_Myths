@@ -9,7 +9,7 @@ Since this application is not a static application, you should have some thinks 
 - NodeJS: If you have not Mongo you can download it in <a href="https://nodejs.org/es/download/"> Node JS Documentation</a>
 - MongoDB If you have not Mongo you can download it in <a href="https://docs.mongodb.com/manual/installation/">MongoDB Community Server</a>. Alternativetly you can use MongoDB Atlas <a href="https://www.mongodb.com/cloud/atlas">MongoDB Community Server</a> 
 
-Once you have it installed, run:
+Once you have it installed, run tha database with replica set
 ```
 mongod --replSet <a name> --dbpath <path> --port <a port>
 rs.initiate()
