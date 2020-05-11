@@ -17,9 +17,7 @@ In order to start the database server
 
 ## Video
 
-![Explanation video](https://www.youtube.com/watch?v=pB0MontNFWU&feature=youtu.be)
-
-
+You can find the explanation video here <a href="https://www.youtube.com/watch?v=pB0MontNFWU&feature=youtu.be"> here</a>
 **Important information**
 You need to create three environments variables to this project
 - `DATABASE_URL=<yourDatabaseURL>` where yourDatabaseURL is the direction to your database. ExampleDATABASE_URL=mongodb://localhost/name
