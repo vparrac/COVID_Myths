@@ -297,13 +297,6 @@ const VerDetalle = (props) => {
                     <div className="col-4">
                       <nav aria-label="Page navigation example">
                         <ul className="pagination">
-                          {limInf > 0 ? (
-                            <li class="page-item">
-                              <button class="page-link">Previous</button>
-                            </li>
-                          ) : (
-                            ''
-                          )}
                           {numberOfPages > 0 ? drawLi() : ''}
 
                           {limSup / 6 >= numberOfPages ? (
