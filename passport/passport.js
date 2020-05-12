@@ -4,7 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const MongoUtils = require("../db");
 const bcrypt = require('bcrypt');
 
-
+//Daniella Arteaga: Buen manejo de usuarios y contraseña, no obstante, dejaron algunos logs que aunque sea de un hash expone informacion sensible.
 const BCRYPT_SALT_ROUNDS = 12;
 function configurePassport(app) {
   const flash = require("connect-flash");
