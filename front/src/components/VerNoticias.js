@@ -4,6 +4,8 @@ import "./Menu.css";
 import "./VerNoticias.css";
 import { useHistory } from "react-router-dom";
 
+//Daniella Arteaga: Muy buena implementación,me gustó el resultado. No obstante, podrían mejorar la navegación con tab de las noticias
+//ya que omite estas y solo navega las opciones del menú y los botones principales.
 const Noticias = (props) => {
   const [noticias, setNoticias] = useState([]);
   const [page, setPages] = useState(1);
