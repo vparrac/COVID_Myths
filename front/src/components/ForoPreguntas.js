@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import Menu from "./Menu";
 import Pregunta from "./Pregunta";
 
+//Daniella Arteaga:Me gusta la idea; sería bueno que pudiesen manejar paginación para hcer más fácil y usable la navegación
+//de las preguntas.
 
 const ForoPreguntas = (props) => {
   const salir = () => {
