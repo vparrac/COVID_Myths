@@ -1,8 +1,6 @@
-import React, { Redirect } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { Route, Link } from "react-router-dom";
-import "./Menu.css";
-import Pregunta from "./Pregunta";
+import "./styles/Menu.css";
 import ForoPreguntas from "./ForoPreguntas";
 import Noticias from "../components/VerNoticias";
 import VerDetalleNoticia from "../components/VerDetalleNoticia";

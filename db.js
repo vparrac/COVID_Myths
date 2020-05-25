@@ -5,6 +5,7 @@ const request = require("request");
 const MongoUtils = () => {
   const MyMongoLib = this || {};
   const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
+  console.log(url);
   const apiKey = process.env.APIKEY;
   const apiUrl = process.env.APIURL;
   const dbName = process.env.DB;

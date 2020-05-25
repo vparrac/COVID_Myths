@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Pregunta.css";
+import "./styles/Pregunta.css";
 
 import Comentarios from "./Comentarios";
 const Pregunta = (props) => {

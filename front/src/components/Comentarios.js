@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Modal, Button } from "react-bootstrap";
-import "./Comentarios.css";
+
+import { Modal } from "react-bootstrap";
+import "./styles/Comentarios.css";
 const Comentarios = (props) => {
   const [show, setShow] = useState(false);
   const [comentarios, setcomentarios] = useState(false);

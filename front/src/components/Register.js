@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import "./Login.css";
+import "./styles/Login.css";
 import Exito from "./Exito";
 const Register = () => {
   const [error, seterror] = useState("");

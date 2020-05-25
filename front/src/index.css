@@ -1,3 +1,30 @@
+.red {
+  color: #ff2638;
+  
+}
+
+.black {
+  color: #20290e;
+}
+
+.green {
+  color: #b8ff33;
+}
+
+.blue {
+  color: #09b3b3;
+}
+
+.skyBlue {
+  color: #6fe3e3;
+}
+
+.title {
+  font-family: "Gotu", sans-serif;
+  color: #09b3b3;
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
