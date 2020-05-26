@@ -1,30 +1,3 @@
-.red {
-  color: #ff2638;
-  
-}
-
-.black {
-  color: #20290e;
-}
-
-.green {
-  color: #b8ff33;
-}
-
-.blue {
-  color: #09b3b3;
-}
-
-.skyBlue {
-  color: #6fe3e3;
-}
-
-.title {
-  font-family: "Gotu", sans-serif;
-  color: #09b3b3;
-}
-
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -76,7 +49,7 @@ code {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: #1C290D;
-  border-color: rgb(184, 255, 90);
+  border-color:  #b8ff33;;
   }
 
 
@@ -117,7 +90,7 @@ code {
   }
   
 .botonVerdad:hover {
-    background-color: rgb(184, 255, 90);
+  color: white;    
 }
 
 

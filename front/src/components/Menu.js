@@ -10,7 +10,7 @@ const Menu = (props) => {
     <div>
       <div>
         <div className="sidebar">
-          <a className="active"> Menu </a>
+          <a>Menu </a>
           <Link to="/preguntar">Preguntar</Link>
           <Link to="/noticias">Noticias</Link>
         </div>
@@ -25,13 +25,13 @@ const Menu = (props) => {
                 setUser={props.setUser}
               ></ForoPreguntas>
             )}
-          ></Route>x
+          ></Route>
+          x
           <Route
             path="/noticias"
             exact
-            component={() => <Noticias  setUser={props.setUser}></Noticias>}
+            component={() => <Noticias setUser={props.setUser}></Noticias>}
           ></Route>
-
           <Route
             path="/verDetalleNoticia"
             exact

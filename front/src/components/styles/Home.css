@@ -1,18 +1,18 @@
 .title {
-  color: #425cb3;
-  font-family: "Lora", serif;
+  color: #09b3b3;
+  font-family: "Gotu", sans-serif;
   text-align: center;
   font-size: 300%;
   padding-top: 0%;
 }
 
 .paragraph {
-  font-family: "Open Sans", sans-serif;
-  font-size: 120%;
+  font-family: "Roboto", sans-serif;
+  font-size: 150%;
   padding-left: 12%;
   padding-right: 12%;
   text-align: justify;
-  color: #1c290d;
+  color: #1c290d;  
 }
 
 .img-fin {
@@ -36,8 +36,8 @@
 }
 
 .titulo-fin{
-  color:#91AAFF;
-  font-family: 'Lora', serif;
+  color:#6fe3e3;
+  font-family: "Gotu", sans-serif;
   font-size: 150%;
   text-align: center;
 }
@@ -80,8 +80,8 @@
 }
 
 .subtitle {
-  color: #ffa58c;
-  font-family: "Lora", serif;
+  color:#6fe3e3;
+  font-family: "Gotu", sans-serif;
   font-size: 150%;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -91,18 +91,19 @@
 
 .list-group-item {
   position: relative;
+  font-family: "Roboto", sans-serif;
   text-align: left;
   display: block;
   padding: .75rem 1.25rem;
   background-color: #fff;
-  border: 1px solid #425CB3; ;
+  border: 1px solid #09b3b3;
       border-top-width: 1px;
       border-right-width: 1px;
       border-left-width: 1px;
 }
 
 .list-group-item:hover{
-  background-color: #91AAFF;
+  background-color: #09b3b3;
 }
 .width {
   width: 40rem;

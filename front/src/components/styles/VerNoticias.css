@@ -1,4 +1,14 @@
 
 .cardBorder{
-    border-color: #91AAFF;
+    border-color:#09b3b3;
+}
+
+.card-title {
+    font-family: "Gotu", sans-serif;
+    
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+    font-family: "Roboto", sans-serif;
 }
