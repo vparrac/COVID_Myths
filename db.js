@@ -29,6 +29,21 @@ const MongoUtils = () => {
     );
   };
 
+
+  MyMongoLib.getPaginateQuestion = (page, query) => {     
+    console.log(query);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find({"contenido" : {$regex : query}})
+        .limit(10)
+        .skip(page)        
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.listenNewQuestions = (notifyAll) => {
     console.log("Listen for changes");
 

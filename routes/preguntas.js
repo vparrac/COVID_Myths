@@ -9,6 +9,24 @@ router.get("/getPreguntas", (req, res) => {
   });
 });
 
+router.get("/getPreguntaByPage", (req, res) => {
+  const page = req.query.page;
+  const query = req.query.query;
+  console.log("query en el get", query)
+  if(query==""){
+
+  }
+  const limit = 10;
+  const startIndex = parseInt((page - 1) * limit);
+  console.log(typeof(startIndex))
+
+  mu.getPaginateQuestion(startIndex, query).then(preguntas=>{
+    console.log(preguntas);
+    res.send(preguntas);
+  });
+
+});
+
 router.post("/publicarPregunta", (req, res) => {
   const user = req.body.user;
   const titulo = req.body.titulo;
