@@ -4,9 +4,9 @@ const request = require("request");
 
 const MongoUtils = () => {
   const MyMongoLib = this || {};
-  const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
-  const apiKey = process.env.APIKEY || "11c85b7f6c6f4f2594a793eea57c096b";
-  const apiUrl = process.env.APIURL || "http://newsapi.org/v2/everything";
+  const url = process.env.MONGODB_URI || "mongodb://localhost:27017";  
+  const apiKey = process.env.APIKEY;
+  const apiUrl = process.env.APIURL;
   const dbName = process.env.DB;
   let db;
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
@@ -28,25 +28,84 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.getPaginateQuestion = (page, query) => {
+    console.log(query);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find({ contenido: { $regex: query } })
+        .sort([["_id", -1]])
+        .limit(10)
+        .skip(page)
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.getPaginateComments = (page, query) => {
+    console.log(query);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find({ contenido: { $regex: query } })
+        .sort([["_id", -1]])
+        .limit(10)
+        .skip(page)
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.hasMore = (page, query) => {
+    console.log(query);
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find({ contenido: { $regex: query } })
+        .count()
+        .finally(() => client.close())
+    );
+  };
+
+
+  MyMongoLib.hasMoreComentarios = (page, criteria) => {
+    
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("comentarios")
+        .find(criteria)
+        .count()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.listenNewQuestions = (notifyAll) => {
     return MyMongoLib.connect(url).then((client) => {
       const cursor = client.db("covidDB").collection("preguntas").watch();
-      cursor.on("change", (data) => {
-        MyMongoLib.getDocs("preguntas").then((docs) => {
-          notifyAll(JSON.stringify(docs));
-        });
-      });
-    });
-  };
 
-  MyMongoLib.listenToComments = (notifyAll) => {
-    return MyMongoLib.connect(url).then((client) => {
-      const cursor = client.db("covidDB").collection("detalleNoticia").watch();
       cursor.on("change", (data) => {
-        console.log("ASKJDNKJSADNKJSANDKJASKJDNSAKJDNASKJDNKJn");
-        MyMongoLib.getDocs("comentarios").then((docs) => {
-          notifyAll(JSON.stringify(docs));
-        });
+        // console.log(data.fullDocument);
+        // MyMongoLib.getDocs("preguntas").then((docs) => {
+        //   console.log("PR",docs);
+        //   notifyAll(JSON.stringify(docs));
+        // });
+
+        if (data.operationType == "update") {
+          const criteria = { _id: data.documentKey._id };
+          console.log(criteria);
+          MyMongoLib.getDocsByCriteria(criteria, "preguntas").then(
+            (data_db) => {
+              const data_2 = { operationType: "update", fullDocument: data_db };
+              notifyAll(JSON.stringify(data_2));
+            }
+          );
+        } else {
+          notifyAll(JSON.stringify(data));
+        }
       });
     });
   };
@@ -69,6 +128,19 @@ const MongoUtils = () => {
         .find()
         .sort([["_id", -1]])
         .limit(600)
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
+  MyMongoLib.getCountDocs = (dbCollection, limit) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection(dbCollection)
+        .find()
+        .sort([["_id", -1]])
+        .limit(limit)
         .toArray()
         .finally(() => client.close())
     );

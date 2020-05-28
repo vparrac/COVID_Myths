@@ -1,0 +1,19 @@
+
+.cardBorder{
+    border-color: #91AAFF;
+}
+
+.card{
+    cursor: pointer;
+}
+
+.card-title{
+    font-weight: 600;
+    font-family: "Gotu", sans-serif;
+    
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+    font-family: "Roboto", sans-serif;
+}

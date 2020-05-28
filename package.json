@@ -8,10 +8,8 @@
     "server": "nodemon ./bin/www",
     "client": "cd front && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "cd front && yarn install && yarn run build",
-    "test": "jest"
+    "heroku-postbuild": "cd front && yarn install && yarn run build"
   },
-  "preset": "@shelf/jest-mongodb",
   "dependencies": {
     "animate.css": "^4.1.0",
     "bcrypt": "^4.0.1",
@@ -35,7 +33,6 @@
     "reactjs-popup": "^1.5.0",
     "request": "^2.88.2",
     "sweetalert2": "^9.10.12",
-    "ts-jest": "^26.0.0",
     "wowjs": "^1.1.3",
     "ws": "^7.3.0"
   },

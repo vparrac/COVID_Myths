@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import "./Login.css";
+
+import "./styles/Login.css";
 const Login = (props) => {
   const formRef = useRef();
   const [message, setMessage] = useState("");

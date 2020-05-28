@@ -20,7 +20,7 @@
   padding-left: 7%;
   padding-right: 7%;
   text-align: justify;
-  color: #1c290d;
+  color: #1c290d;  
 }
 
 .paragraph2 {
@@ -111,8 +111,8 @@
 }
 
 .subtitle {
-  color: #ffa58c;
-  font-family: "Lora", serif;
+  color:#6fe3e3;
+  font-family: "Gotu", sans-serif;
   font-size: 150%;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -121,6 +121,7 @@
 
 .list-group-item {
   position: relative;
+  font-family: "Roboto", sans-serif;
   text-align: left;
   display: block;
   padding: 0.75rem 1.25rem;
@@ -154,7 +155,7 @@
       rgba(0, 0, 0, 0) 26%,
       rgba(0, 0, 0, 0.65) 100%
     ),
-    url("../imgs/white-ceramic-mug-on-white-printer-paper-3944430.jpg")
+    url("../../imgs/white-ceramic-mug-on-white-printer-paper-3944430.jpg")
       no-repeat center center scroll;
   background-size: 100%;
   margin-bottom: 70px;

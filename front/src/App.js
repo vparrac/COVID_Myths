@@ -9,49 +9,6 @@ function App() {
   const [q, setq] = useState("");
   const [show, setShow] = useState(false);
 
-  const listarNoticias = (noticiass) => {
-    return noticiass.map((elem) => {
-      return (
-        <Pregunta
-          user={hayUsuario}
-          id={elem._id}
-          key={elem._id}
-          title={elem.titulo}
-          contenido={elem.contenido}
-          usuario={elem.usuario}
-          mito={elem.mito}
-          verdad={elem.verdad}
-        ></Pregunta>
-      );
-    });
-  };
-
-  useEffect(() => {
-    const wss = new WebSocket(process.env.public_url || "ws://localhost:3001");
-
-    wss.onopen = () => {
-      console.log("WS Client connected");
-      wss.onmessage = (msg) => {
-        const l = listarNoticias(JSON.parse(msg.data));
-        setq(l);
-      };
-    };
-
-    fetch("/preguntas/getPreguntas", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const nn = listarNoticias(json);
-        setq(nn);
-      });
-    
-      return () => {
-        wss.close();
-      }
-      
-  }, [hayUsuario]);
-
   return (
     <div>
       {hayUsuario ? (

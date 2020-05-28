@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import "./Home.css";
+import "./styles/Home.css";
 import WOW from "wowjs";
 
 const Home = (props) => {

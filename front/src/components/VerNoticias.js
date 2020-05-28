@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import "./Menu.css";
-import "./VerNoticias.css";
+import "./styles/Menu.css";
+import "./styles/VerNoticias.css";
 import { useHistory } from "react-router-dom";
 
 const Noticias = (props) => {
@@ -11,18 +10,13 @@ const Noticias = (props) => {
   const history = useHistory();
   const [fetching, setFetching] = useState(false);
 
-  
   const loadMore = () => {
-    
-    if (
-      (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2
-    ) {
-      setPages(prevState => {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+      setPages((prevState) => {
         return prevState + 1;
       });
     }
   };
-
 
   const saliendo = () => {
     fetch("/salir", {
@@ -39,7 +33,6 @@ const Noticias = (props) => {
     });
   };
 
-
   useEffect(() => {
     window.addEventListener("scroll", loadMore);
     fetch("/news/getNews", {
@@ -55,7 +48,7 @@ const Noticias = (props) => {
           setNoticias(json.articles);
         }
       });
-      return () => window.removeEventListener("scroll", loadMore);
+    return () => window.removeEventListener("scroll", loadMore);
   }, []);
 
   useEffect(() => {
@@ -69,7 +62,7 @@ const Noticias = (props) => {
           setNoticias(noticias.concat(json.articles));
         }
       });
-  }, [ page ]);
+  }, [page]);
 
   return (
     <div>
@@ -114,7 +107,7 @@ const Noticias = (props) => {
                       </div>
                     );
                   })
-                : "Hubo un problema recopilando las noticias"}
+                : ""}
             </div>
           </div>
         </div>

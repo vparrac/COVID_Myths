@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
-import "./Menu.css";
+import "./styles/Menu.css";
 import { useLocation } from "react-router-dom";
-import "./VerDetalleNoticia.css";
+import "./styles/VerDetalleNoticia.css";
 import Swal from "sweetalert2";
 
 const VerDetalle = (props) => {
@@ -183,9 +183,7 @@ const VerDetalle = (props) => {
                 <div className="navbar-brand" to="/"></div>
 
                 <div className="text-right">
-                  <button className="btnLogin" onClick={saliendo}>
-                    Salir
-                  </button>
+                  <button className="btnLogin" onClick={saliendo}>Salir</button>
                 </div>
               </nav>
 
