@@ -76,7 +76,7 @@ const MongoUtils = () => {
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
-        .collection("preguntas")
+        .collection("comentarios")
         .find(criteria)
         .count()
         .finally(() => client.close())
@@ -161,12 +161,13 @@ const MongoUtils = () => {
 
 
   MyMongoLib.getCommentarios = (criteria, page) => {
+    console.log(criteria);
     return MyMongoLib.connect(url).then((client) =>
       client
         .db(dbName)
-        .collection("preguntas")
+        .collection("comentarios")
         .find(criteria)
-        .skip(page)
+        .skip((page-1)*10)
         .limit(10)        
         .toArray()
         .finally(() => client.close())

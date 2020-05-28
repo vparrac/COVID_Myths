@@ -126,10 +126,12 @@ router.post("/comentariosUnaPregunta", (req, res) => {
 router.get("/comentariosUnaPregunta", (req, res) => {
   const pregunta = req.query.pregunta;
   const page = req.query.page;
-  const criteria = { pregunta };
+  const criteria = { pregunta: pregunta };
   mu.getCommentarios(criteria, parseInt(page)).then((preguntas) => {
+    
     let hasMore = false;
-    mu.hasMore(nsi, query).then((number) => {
+    mu.hasMoreComentarios(parseInt(pregunta), criteria).then((number) => {
+      console.log("number", number);
       if (number > parseInt(page) * 10) {
         hasMore = true;
       }
