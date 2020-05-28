@@ -85,3 +85,16 @@ div.content {
 .btnLogin:hover {
   color: #09b3b3;
 }
+
+.welcome {
+  display: flex;
+  align-items: center;
+  padding-top: 5%;
+  font-family: "Roboto", sans-serif;
+  font-size: x-large;
+}
+
+a{
+  font-size: x-large;
+  text-align: center;
+}

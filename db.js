@@ -70,6 +70,19 @@ const MongoUtils = () => {
     );
   };
 
+
+  MyMongoLib.hasMoreComentarios = (page, criteria) => {
+    
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find(criteria)
+        .count()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.listenNewQuestions = (notifyAll) => {
     console.log("Listen for changes");
 
@@ -145,6 +158,21 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
+
+
+  MyMongoLib.getCommentarios = (criteria, page) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("preguntas")
+        .find(criteria)
+        .skip(page)
+        .limit(10)        
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.updateNoticia = (text, upvote) => {
     return MyMongoLib.connect(url).then((client) => {
       client

@@ -11,7 +11,7 @@ router.get("/getPreguntas", (req, res) => {
 
 router.get("/getPreguntaByPage", (req, res) => {
   const page = req.query.page;
-  let query = req.query.query;  
+  let query = req.query.query;
   if (query == "") {
     query = ".*";
   } else {
@@ -24,17 +24,14 @@ router.get("/getPreguntaByPage", (req, res) => {
     const nsi = page * limit;
     let hasMore = false;
     mu.hasMore(nsi, query).then((number) => {
-      
       if (number > parseInt(page) * 10) {
-        
         hasMore = true;
       }
-      
+
       res.send({ preguntas, hasMore });
     });
   });
 });
-
 
 router.post("/publicarPregunta", (req, res) => {
   const user = req.body.user;
@@ -123,6 +120,21 @@ router.post("/comentariosUnaPregunta", (req, res) => {
 
   mu.getDocsByCriteria(criteria, "comentarios").then((respuesta) => {
     res.send(respuesta);
+  });
+});
+
+router.get("/comentariosUnaPregunta", (req, res) => {
+  const pregunta = req.query.pregunta;
+  const page = req.query.page;
+  const criteria = { pregunta };
+  mu.getCommentarios(criteria, parseInt(page)).then((preguntas) => {
+    let hasMore = false;
+    mu.hasMore(nsi, query).then((number) => {
+      if (number > parseInt(page) * 10) {
+        hasMore = true;
+      }
+      res.send({ preguntas, hasMore });
+    });
   });
 });
 

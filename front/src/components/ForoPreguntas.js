@@ -9,6 +9,11 @@ const ForoPreguntas = (props) => {
   const [pageNumber, setpageNumber] = useState(1);
   const [changes, setChanges] = useState(false);
   const formSearch = useRef();
+  const clean=(e)=>{
+    e.preventDefault();
+    setquery("");
+  };
+
   const setupWS = () => {
     const wss = new WebSocket(process.env.public_url || "ws://localhost:3001");
 
@@ -23,6 +28,7 @@ const ForoPreguntas = (props) => {
   };
 
   useEffect(() => {
+    props.setInitial(false);
     setupWS();
   }, []);
 
@@ -108,6 +114,9 @@ const ForoPreguntas = (props) => {
               />
               <button type="submit" className="btnLogin" onClick={handleSearch}>
                 Buscar
+              </button>
+              <button className="btnLogin" onClick={clean}>
+                Limpiar busqueda
               </button>
             </form>
           </div>
