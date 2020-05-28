@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink  } from "react-router-dom";
 import "./styles/Menu.css";
 import ForoPreguntas from "./ForoPreguntas";
 import Noticias from "../components/VerNoticias";
@@ -11,11 +11,11 @@ const Menu = (props) => {
       <div>
         <div className="sidebar">
           <a>Menu </a>
-          <Link to="/preguntar">Preguntar</Link>
-          <Link to="/noticias">Noticias</Link>
+          <NavLink  to="/preguntar" activeClassName='is-active'>Preguntar</NavLink>
+          <NavLink  to="/noticias">Noticias</NavLink>
         </div>
         <div className="content">
-          <Route
+          <Route 
             path="/preguntar"
             exact
             component={() => (
@@ -25,14 +25,13 @@ const Menu = (props) => {
                 setUser={props.setUser}
               ></ForoPreguntas>
             )}
-          ></Route>
-          x
-          <Route
+          ></Route>          
+          <Route 
             path="/noticias"
             exact
             component={() => <Noticias setUser={props.setUser}></Noticias>}
           ></Route>
-          <Route
+          <Route 
             path="/verDetalleNoticia"
             exact
             component={() => (

@@ -11,21 +11,30 @@ router.get("/getPreguntas", (req, res) => {
 
 router.get("/getPreguntaByPage", (req, res) => {
   const page = req.query.page;
-  const query = req.query.query;
-  console.log("query en el get", query)
-  if(query==""){
-
+  let query = req.query.query;  
+  if (query == "") {
+    query = ".*";
+  } else {
+    query = ".*" + query + "*.";
   }
   const limit = 10;
   const startIndex = parseInt((page - 1) * limit);
-  console.log(typeof(startIndex))
 
-  mu.getPaginateQuestion(startIndex, query).then(preguntas=>{
-    console.log(preguntas);
-    res.send(preguntas);
+  mu.getPaginateQuestion(startIndex, query).then((preguntas) => {
+    const nsi = page * limit;
+    let hasMore = false;
+    mu.hasMore(nsi, query).then((number) => {
+      
+      if (number > parseInt(page) * 10) {
+        
+        hasMore = true;
+      }
+      
+      res.send({ preguntas, hasMore });
+    });
   });
-
 });
+
 
 router.post("/publicarPregunta", (req, res) => {
   const user = req.body.user;

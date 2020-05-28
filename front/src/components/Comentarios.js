@@ -6,20 +6,7 @@ const Comentarios = (props) => {
   const [show, setShow] = useState(false);
   const [comentarios, setcomentarios] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const formRef = useRef();
-
-  const listarComentarios = (comentarios) => {
-    return comentarios.map((elem, index) => {
-      return (
-        <li key={elem._id} className="list-group-item">
-          {elem.contenido}
-        </li>
-      );
-    });
-  };
-
-  useEffect(() => {
+  const handleShow = () => {
     const id = props.pregunta;
     fetch("/preguntas/comentariosUnaPregunta", {
       method: "POST",
@@ -35,7 +22,19 @@ const Comentarios = (props) => {
         const l = listarComentarios(json);
         setcomentarios(l);
       });
-  }, [show]);
+    setShow(true);
+  };
+  const formRef = useRef();
+
+  const listarComentarios = (comentarios) => {
+    return comentarios.map((elem, index) => {
+      return (
+        <li key={elem._id} className="list-group-item">
+          {elem.contenido}
+        </li>
+      );
+    });
+  };
 
   const comentar = (evt) => {
     evt.preventDefault();
@@ -67,8 +66,8 @@ const Comentarios = (props) => {
         .then((res) => res.json())
         .then((json) => {
           console.log(json);
-          const l = listarComentarios(json);
-          setcomentarios(l);
+          // const l = listarComentarios(json);
+          // setcomentarios(l);
         });
     });
   };
@@ -90,8 +89,7 @@ const Comentarios = (props) => {
             <form onSubmit={comentar} ref={formRef}>
               <label>Haz un comentario:</label>
               <div className="input-group mb-3">
-                <textarea
-                  required="true"
+                <textarea                  
                   name="contenido"
                   className="form-control"
                   aria-label="descripcion"

@@ -8,9 +8,10 @@
 .form-control, .input-group > .form-control-plaintext {
   position: relative;
   -ms-flex: 1 1 0%;
+
   flex: 1 1 0%;
   font-family: "Roboto", sans-serif;
-  font-size: larger;
+  font-size: x-large;
   min-width: 0;
   margin-bottom: 0;
 }
