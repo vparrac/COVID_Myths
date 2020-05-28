@@ -6,7 +6,8 @@ const Footer = () => {
       <div className="footer">
         <hr></hr>
         <h4>
-          Covid-19 Myths <br></br>
+          Covid-19 Myths, <br></br>
+          Images from pexel.com: Markus, bongkarn <br></br>
           Icons made by{" "}
           <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
             Freepik

@@ -6,7 +6,7 @@
 
 
 .botonVerdad {
-    width: 10;
+    width: 100%;
     font-family: "Lora", serif;
     display: inline-block;
     font-weight: 400;
@@ -40,12 +40,26 @@
     color: #1C290D;
     border-color: rgb(184, 255, 90);
   }
+
+  .margin-bot-top{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
   
+  .title{
+    font-size: 45px;
+  }
+
+  .padding{
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
   .botonMito:hover{
       background-color: #FFA58C;
   }
   .botonMito {
-      width: 10;
+      width: 100%;
       font-family: "Lora", serif;
       display: inline-block;
       font-weight: 400;

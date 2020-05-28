@@ -10,7 +10,7 @@ const Navbar = (props) => {
   const [img, setimg] = useState("./img/noticias.png");
 
   return (
-    <div className="container-fluid">
+    <div className="">
       <div>
         <nav className="navbar navbar-light">
           <Link className="navbar-brand" to="/">

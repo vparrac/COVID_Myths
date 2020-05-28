@@ -27,7 +27,7 @@ const Menu = (props) => {
                 setUser={props.setUser}
               ></ForoPreguntas>
             )}
-          ></Route>x
+          ></Route>
           <Route
             path="/noticias"
             exact

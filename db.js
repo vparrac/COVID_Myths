@@ -5,8 +5,8 @@ const request = require("request");
 const MongoUtils = () => {
   const MyMongoLib = this || {};
   const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
-  const apiKey = process.env.APIKEY;
-  const apiUrl = process.env.APIURL;
+  const apiKey = process.env.APIKEY || "11c85b7f6c6f4f2594a793eea57c096b";
+  const apiUrl = process.env.APIURL || "http://newsapi.org/v2/everything";
   const dbName = process.env.DB;
   let db;
   MongoClient.connect(url, { useUnifiedTopology: true }).then((client) => {
@@ -29,14 +29,22 @@ const MongoUtils = () => {
   };
 
   MyMongoLib.listenNewQuestions = (notifyAll) => {
-    console.log("Listen for changes");
-
     return MyMongoLib.connect(url).then((client) => {
       const cursor = client.db("covidDB").collection("preguntas").watch();
-      //console.log(cursor);
-      cursor.on("change", (data) => {        
+      cursor.on("change", (data) => {
         MyMongoLib.getDocs("preguntas").then((docs) => {
-          console.log("PR",docs);
+          notifyAll(JSON.stringify(docs));
+        });
+      });
+    });
+  };
+
+  MyMongoLib.listenToComments = (notifyAll) => {
+    return MyMongoLib.connect(url).then((client) => {
+      const cursor = client.db("covidDB").collection("detalleNoticia").watch();
+      cursor.on("change", (data) => {
+        console.log("ASKJDNKJSADNKJSANDKJASKJDNSAKJDNASKJDNKJn");
+        MyMongoLib.getDocs("comentarios").then((docs) => {
           notifyAll(JSON.stringify(docs));
         });
       });
@@ -76,17 +84,48 @@ const MongoUtils = () => {
         .finally(() => client.close())
     );
   };
-  MyMongoLib.updateNoticia = (text, upvote) => {
+  MyMongoLib.updateNoticia = (ids, usuario, upvote, text) => {
+    return MyMongoLib.connect(url).then((client) => {
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .findOneAndUpdate(
+          { _id: ids, votos: { $elemMatch: { usuario } } },
+          {
+            $set: { ["votos.$.voto"]: upvote, ["votos.$.usuario"]: usuario },
+          }
+        )
+        .finally(() => client.close());
+    });
+  };
+
+  MyMongoLib.updateNoticia2 = (ids, usuario, upvote, text) => {
     return MyMongoLib.connect(url).then((client) => {
       client
         .db(dbName)
         .collection("detalleNoticia")
         .findOneAndUpdate(
           { contenido: text },
-          { $push: { votos: { usuario: "1", voto: upvote } } },
-          { upsert: true, returnOriginal: false }
+          {
+            $push: { votos: { usuario, voto: upvote } },
+          },
+          { upsert: true }
         )
         .finally(() => client.close());
+    });
+  };
+
+  MyMongoLib.searchUsuarioInArray = (ids, usuario) => {
+    return new Promise((resolve, reject) => {
+      MyMongoLib.connect(url).then((client) => {
+        client
+          .db(dbName)
+          .collection("detalleNoticia")
+          .find({ _id: ids, "votos.usuario": usuario })
+          .toArray(function (err, things) {
+            resolve(things);
+          });
+      });
     });
   };
 
@@ -97,7 +136,9 @@ const MongoUtils = () => {
         .collection("detalleNoticia")
         .findOneAndUpdate(
           { contenido: text },
-          { $push: { comentarios: { usuario, comentario } } },
+          {
+            $push: { comentarios: { usuario: ObjectId(usuario), comentario } },
+          },
           { upsert: true, returnOriginal: false }
         )
         .finally(() => client.close());
@@ -238,6 +279,56 @@ const MongoUtils = () => {
     );
   };
 
+  MyMongoLib.getMasComentarios = (text, page) => {
+    return MyMongoLib.connect(url).then((client) =>
+      client
+        .db(dbName)
+        .collection("detalleNoticia")
+        .aggregate([
+          { $match: { contenido: text } },
+          {
+            $project: {
+              comentarios: { $slice: ["$comentarios", 0, page] },
+              contenido: 1,
+              votos: 1,
+              comments: "$comentarios",
+            },
+          },
+          {
+            $lookup: {
+              from: "login",
+              localField: "comentarios.usuario",
+              foreignField: "_id",
+              as: "comentarios",
+            },
+          },
+          {
+            $addFields: {
+              comentarios: {
+                $map: {
+                  input: "$comentarios",
+                  as: "c",
+                  in: {
+                    usuario: "$$c._id",
+                    comentario: {
+                      $arrayElemAt: [
+                        "$comments.comentario",
+                        { $indexOfArray: ["$comments.usuario", "$$c._id"] },
+                      ],
+                    },
+                    "username": "$$c.username"
+                  },
+                },
+              },
+            },
+          },
+
+        ])
+        .toArray()
+        .finally(() => client.close())
+    );
+  };
+
   MyMongoLib.getComentariosPaginados = (text, limInf, limSup) => {
     return MyMongoLib.connect(url).then((client) =>
       client
@@ -325,7 +416,7 @@ const MongoUtils = () => {
 
   MyMongoLib.getNewsOfCovid = (page) => {
     return new Promise((resolve, reject) => {
-      let options = {
+      let pt = {
         url: apiUrl,
         qs: {
           q: "Covid AND coronavirus",
@@ -336,7 +427,7 @@ const MongoUtils = () => {
           apiKey: apiKey,
         },
       };
-      request(options, (error, response, body) => {
+      request(pt, (error, response, body) => {
         if (!error) {
           resolve(body);
         } else {

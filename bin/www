@@ -38,8 +38,8 @@ server.on("listening", onListening);
 
 
 mu.listenNewQuestions(wsu.notifyAll);
+mu.listenToComments(wsu.notifyAll);
 wsu.setUpWs(server);
-console.log("Se llamo listen");
 
 /**
  * Normalize a port into a number, string, or false.

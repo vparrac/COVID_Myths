@@ -26,20 +26,17 @@ function App() {
     });
   };
 
-  const setupWS = () => {
-    const wss = new WebSocket( process.env.public_url|| "ws://localhost:3001");
+  useEffect(() => {
+    const wss = new WebSocket(process.env.public_url || "ws://localhost:3001");
 
     wss.onopen = () => {
       console.log("WS Client connected");
       wss.onmessage = (msg) => {
-        const l= listarNoticias(JSON.parse(msg.data));
+        const l = listarNoticias(JSON.parse(msg.data));
         setq(l);
       };
     };
-  };
 
-  useEffect(() => {
-    setupWS();
     fetch("/preguntas/getPreguntas", {
       method: "GET",
     })
@@ -48,6 +45,11 @@ function App() {
         const nn = listarNoticias(json);
         setq(nn);
       });
+    
+      return () => {
+        wss.close();
+      }
+      
   }, [hayUsuario]);
 
   return (

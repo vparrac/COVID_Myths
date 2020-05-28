@@ -9,9 +9,22 @@ const Noticias = (props) => {
   const [page, setPages] = useState(1);
   const [hayNoticias, setHayNoticias] = useState(false);
   const history = useHistory();
+  const [fetching, setFetching] = useState(false);
+
+  
+  const loadMore = () => {
+    
+    if (
+      (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2
+    ) {
+      setPages(prevState => {
+        return prevState + 1;
+      });
+    }
+  };
+
 
   const saliendo = () => {
-    console.log("Intentando salir");
     fetch("/salir", {
       method: "POST",
       mode: "cors",
@@ -25,7 +38,10 @@ const Noticias = (props) => {
       }
     });
   };
+
+
   useEffect(() => {
+    window.addEventListener("scroll", loadMore);
     fetch("/news/getNews", {
       method: "GET",
       qs: {
@@ -39,6 +55,7 @@ const Noticias = (props) => {
           setNoticias(json.articles);
         }
       });
+      return () => window.removeEventListener("scroll", loadMore);
   }, []);
 
   useEffect(() => {
@@ -52,7 +69,7 @@ const Noticias = (props) => {
           setNoticias(noticias.concat(json.articles));
         }
       });
-  }, [page]);
+  }, [ page ]);
 
   return (
     <div>
@@ -86,6 +103,7 @@ const Noticias = (props) => {
                           <img
                             className="card-img-top"
                             src={el.urlToImage}
+                            onError={(e) => (e.target.src = "./periodico.jpg")}
                             alt="Imagen de noticia"
                           ></img>
                           <div className="card-body">
@@ -96,11 +114,8 @@ const Noticias = (props) => {
                       </div>
                     );
                   })
-                : ""}
+                : "Hubo un problema recopilando las noticias"}
             </div>
-            <button className="btnLogin" onClick={() => setPages(page + 1)}>
-              Ver más
-            </button>
           </div>
         </div>
       </div>

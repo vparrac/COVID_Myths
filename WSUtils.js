@@ -2,23 +2,22 @@ const WebSocket = require("ws");
 
 function WSUtils() {
   const wsu = {};
-  let clients=[];
+  let clients = new Set();
 
   wsu.setUpWs = (server) => {
-    console.log("Setting web sockets");
     const wss = new WebSocket.Server({ server });
     wss.on("connection", (ws) => {
-      console.log("New connection");
-      clients.push(ws);
+      clients.add(ws);
+      ws.on("close", (ev) => {
+        clients.delete(ws);
+      });
     });
   };
 
   wsu.notifyAll = (data) => {
-    clients.forEach(ws => {
-      console.log("Notify all");
+    clients.forEach((ws) => {
       ws.send(data);
     });
-    
   };
 
   return wsu;

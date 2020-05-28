@@ -14,7 +14,7 @@ const VerDetalle = (props) => {
   const [comentarios, setComentarios] = useState([]);
   const [limInf, setLimInf] = useState(0);
   const [limSup, setLimSup] = useState(6);
-  const [numberOfPages, setPages] = useState(0);
+  const [numberOfPages, setPages] = useState(6);
 
   const saliendo = () => {
     console.log("Intentando salir");
@@ -59,8 +59,7 @@ const VerDetalle = (props) => {
     };
     let obj2 = {
       contenido: news.description,
-      limInf: limInf,
-      limSup: limSup,
+      page: numberOfPages,
     };
     fetch("/news/detalleNewsUpVote", {
       method: "POST",
@@ -97,34 +96,18 @@ const VerDetalle = (props) => {
     })
       .then((res) => res.json())
       .then((json) => {
-        if (json.length > 0 && json[0].comentarios.length > 0) {
+        console.log(json);
+        setPages(numberOfPages + 6);
+        if (json.length > 0) {
           setComentarios(json[0].comentarios);
-        }
-      });
-    fetch("/news/getNumComentarios", {
-      method: "POST",
-      body: JSON.stringify(obj),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.length > 0 && json[0].num_comentarios > 0) {
-          console.log(Math.ceil(json[0].num_comentarios / 6));
-          setPages(Math.ceil(json[0].num_comentarios / 6));
         }
       });
   }, []);
 
   const updateVotes = (upvote) => {
-    if (upvote) {
-      setUpVotes(upVotes + 1);
-    } else {
-      setDownVotes(downVotes + 1);
-    }
     let obj = {
       upvote,
+      usuario: props.user,
       contenido: news.description,
     };
     fetch("/news/detalleNews", {
@@ -136,7 +119,18 @@ const VerDetalle = (props) => {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        if (json.upVotes.length > 0) {
+          setUpVotes(json.upVotes[0].total);
+        }
+        if (json.downVotes.length > 0) {
+          setDownVotes(json.downVotes[0].total);
+        }
+        if (json.upVotes.length === 0) {
+          setUpVotes(0);
+        }
+        if (json.downVotes.length === 0) {
+          setDownVotes(0);
+        }
       });
   };
 
@@ -157,29 +151,30 @@ const VerDetalle = (props) => {
     })
       .then((res) => res.json())
       .then((json) => {
-        Swal.fire("Comentario creado con exito", "", "success");
-        formu.comentario.value = "";
+        let obj2 = {
+          contenido: news.description,
+          page: numberOfPages,
+        };
+        fetch("/news/getComentarios", {
+          method: "POST",
+          body: JSON.stringify(obj2),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            Swal.fire("Comentario creado con exito", "", "success");
+            formu.comentario.value = "";
+            if (json.length > 0) {
+              setComentarios(json[0].comentarios);
+            }
+          });
       });
   };
 
-  const drawLi = () => {
-    const li = [];
-    for (let i = 0; i < numberOfPages; i = i + 1) {
-      li.push(
-        <Pagination
-          key={"page" + i}
-          page={i}
-          limInf={limInf}
-          limSup={limSup}
-          parentCallback={parentCallback}
-        ></Pagination>
-      );
-    }
-    return li;
-  };
-
   return (
-    <div>
+    <div className="padding">
       {news ? (
         <div>
           <div className="container-fluid">
@@ -188,12 +183,14 @@ const VerDetalle = (props) => {
                 <div className="navbar-brand" to="/"></div>
 
                 <div className="text-right">
-                <button className="btnLogin" onClick={saliendo}>Salir</button>
+                  <button className="btnLogin" onClick={saliendo}>
+                    Salir
+                  </button>
                 </div>
               </nav>
 
               <div className="row">
-                <div className="col-2">
+                <div className="col-3">
                   <div className="row">
                     <button
                       onClick={() => updateVotes(true)}
@@ -211,33 +208,32 @@ const VerDetalle = (props) => {
                     </button>
                   </div>
                 </div>
-                <div className="col-10">
+                <div className="col-9">
                   <div className="row">
-                    <h1>{news.title}</h1>
-                  </div>
-                  <div className="row">
-                    <h4>Sitio de la noticia: {news.source.name}</h4>
-                  </div>
-                  <div className="row">
-                    <p>Por: {news.author} </p>
-                  </div>
-                  <div className="row">
-                    <img
-                      src={news.urlToImage}
-                      className="foto-noticia"
-                      alt="Imagen de noticia"
-                    ></img>
-                  </div>
-                  <div className="row">
-                    <p>{news.description}</p>
-                  </div>
-                  <div className="row">
-                    <h5>Seguir leyendo </h5>
-                  </div>
-                  <div className="row">
-                    <a href={news.url}>{news.url}</a>
+                    <h1 className="title">{news.title}</h1>
                   </div>
                 </div>
+              </div>
+
+              <div className="row margin-bot-top">
+                <img
+                  src={news.urlToImage}
+                  onError={(e) => (e.target.src = "./periodico.jpg")}
+                  className="foto-noticia"
+                  alt="Imagen de noticia"
+                ></img>
+              </div>
+              <div className="row">
+                <h4>Sitio de la noticia: {news.source.name}</h4>
+              </div>
+              <div className="row">
+                <p>Por: {news.author} </p>
+              </div>
+              <div className="row">
+                <h5>Seguir leyendo </h5>
+              </div>
+              <div className="row">
+                <a href={news.url}>{news.url}</a>
               </div>
 
               <div className="card">
@@ -273,7 +269,7 @@ const VerDetalle = (props) => {
                       <div className="row" key={"comentario" + key}>
                         <div className="col-12">
                           <div className="row">
-                            <p className="usuario">{el.usuario}</p>
+                            <p className="usuario">{el.username}</p>
                           </div>
                           <div className="row">
                             <p className="pregunta">{el.comentario}</p>
@@ -311,19 +307,7 @@ const VerDetalle = (props) => {
                   <div className="row">
                     <div className="col-4"></div>
                     <div className="col-4">
-                      <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                          {numberOfPages > 0 ? drawLi() : ""}
-
-                          {limSup / 6 >= numberOfPages ? (
-                            <li className="page-item">
-                              <button className="page-link">Next</button>
-                            </li>
-                          ) : (
-                            ""
-                          )}
-                        </ul>
-                      </nav>
+                      <nav aria-label="Page navigation example"></nav>
                     </div>
                     <div className="col-4"></div>
                   </div>
