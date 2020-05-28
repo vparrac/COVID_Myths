@@ -1,22 +1,47 @@
-import React, { Redirect } from "react";
-import PropTypes from "prop-types";
-import { Route, Link } from "react-router-dom";
-import "./Menu.css";
-import Pregunta from "./Pregunta";
+import React, { useState } from "react";
+import { Route, NavLink } from "react-router-dom";
+import "./styles/Menu.css";
 import ForoPreguntas from "./ForoPreguntas";
 import Noticias from "../components/VerNoticias";
 import VerDetalleNoticia from "../components/VerDetalleNoticia";
-
+import Footer from "../layout/Footer";
 const Menu = (props) => {
+  const [initial, setInitial] = useState(true);
   return (
     <div>
       <div>
         <div className="sidebar">
-          <a className="active"> Menu </a>
-          <Link to="/preguntar">Preguntar</Link>
-          <Link to="/noticias">Noticias</Link>
+          <a>Menu </a>
+          <hr></hr>
+          <NavLink to="/preguntar" activeClassName="is-active">
+            Preguntar
+          </NavLink>
+          <NavLink to="/noticias">Noticias</NavLink>
         </div>
         <div className="content">
+          {initial ? (
+            <div>
+              <div className="welcome">
+                Bienvenido !! <br></br>a la izquierda encontrarás un las
+                opciones para hacer la pregunta o ver la noticias sobre el COVID
+                Todas las noticias son traidas desde:
+              </div>
+              <div className="text-center">
+                <a href="https://newsapi.org/docs/get-started" title="API">
+                News API
+                </a>{" "}
+              </div>
+              <hr></hr>
+              <img
+                src="./img/readNew.jpg"
+                className="rounded mx-auto d-block"
+                alt="Leer noticias"
+              ></img>
+              <Footer></Footer>
+            </div>
+          ) : (
+            <div></div>
+          )}
           <Route
             path="/preguntar"
             exact
@@ -25,15 +50,15 @@ const Menu = (props) => {
                 user={props.user}
                 q={props.q}
                 setUser={props.setUser}
+                setInitial={setInitial}
               ></ForoPreguntas>
             )}
-          ></Route>x
+          ></Route>
           <Route
             path="/noticias"
             exact
-            component={() => <Noticias  setUser={props.setUser}></Noticias>}
+            component={() => <Noticias setUser={props.setUser}></Noticias>}
           ></Route>
-
           <Route
             path="/verDetalleNoticia"
             exact

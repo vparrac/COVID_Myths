@@ -1,17 +1,14 @@
 .title {
-  color: #425cb3;
+  color: #09b3b3;
   padding-top: 20px;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: xx-large;
   margin: 0 auto;
 }
 
-.myth {
-  color: #ffa58c;
-}
 
 .subtitle {
-  color: #91aaff;
+  color: #09b3b3;
 }
 
 .truth {
@@ -23,13 +20,13 @@
 }
 
 .footer {
-  font-family: "Lora", serif;
+  font-family: "Gotu", sans-serif;
   font-size: medium;
   text-align: center;
 }
 
 .btnLogin {
-  font-family: "Lora", serif;
+  font-family: "Gotu", sans-serif;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -56,13 +53,13 @@
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  color: #425cb3;
-  border-color: #425cb3;
+  color: #09b3b3;
+  border-color: #09b3b3;
 }
 
 .botonMito {
   width: 10;
-  font-family: "Lora", serif;
+  font-family: "Gotu", sans-serif;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -93,12 +90,13 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: #1C290D;
-  border-color: #FFA58C;
+  border-color:#ffa58c;
 }
 
 
 .botonMito:hover{
-  background-color: #FFA58C;
+  background-color:#ffa58c;
+  color: white  ;
 }
 
 

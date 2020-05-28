@@ -7,13 +7,14 @@
 
 .botonVerdad {
     width: 10;
-    font-family: "Lora", serif;
+    font-family: "Gotu", sans-serif;
     display: inline-block;
     font-weight: 400;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     -webkit-user-select: none;
+        
     -moz-user-select: none;
     margin: 10px;
     user-select: none;
@@ -30,6 +31,7 @@
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
+    background-color: #b8ff5a;
     border-left-color: transparent;
     padding: 0.375rem 0.75rem;
     font-size: 1.2rem;
@@ -37,16 +39,17 @@
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
       border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    color: #1C290D;
-    border-color: rgb(184, 255, 90);
+    color: black;
+    border-color:#b8ff33;
   }
   
   .botonMito:hover{
-      background-color: #FFA58C;
+      background-color: #ffa58c;
+      
   }
   .botonMito {
       width: 10;
-      font-family: "Lora", serif;
+      font-family: "Gotu", sans-serif;
       display: inline-block;
       font-weight: 400;
       text-align: center;
@@ -70,6 +73,7 @@
       border-right-color: transparent;
       border-bottom-color: transparent;
       border-left-color: transparent;
+      background-color:#ffa58c;
       padding: 0.375rem 0.75rem;
       font-size: 1.2rem;
       line-height: 1.5;
@@ -81,19 +85,19 @@
     }
     
   .botonVerdad:hover {
-      background-color: rgb(184, 255, 90);
+      background-color: #b8ff33;
   }
   
 
   .usuario{
-      color: #425CB3;
+      color: #09b3b3;
       margin-left: 10px;
       margin-bottom: 10px;
   }
   
 
   .usuarioRespuesta{
-    color: #425CB3;
+    color: #09b3b3;
     margin-left: 10%;
     margin-bottom: 10px;
   }

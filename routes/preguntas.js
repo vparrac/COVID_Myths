@@ -9,6 +9,30 @@ router.get("/getPreguntas", (req, res) => {
   });
 });
 
+router.get("/getPreguntaByPage", (req, res) => {
+  const page = req.query.page;
+  let query = req.query.query;
+  if (query == "") {
+    query = ".*";
+  } else {
+    query = ".*" + query + "*.";
+  }
+  const limit = 10;
+  const startIndex = parseInt((page - 1) * limit);
+
+  mu.getPaginateQuestion(startIndex, query).then((preguntas) => {
+    const nsi = page * limit;
+    let hasMore = false;
+    mu.hasMore(nsi, query).then((number) => {
+      if (number > parseInt(page) * 10) {
+        hasMore = true;
+      }
+
+      res.send({ preguntas, hasMore });
+    });
+  });
+});
+
 router.post("/publicarPregunta", (req, res) => {
   const user = req.body.user;
   const titulo = req.body.titulo;
@@ -96,6 +120,23 @@ router.post("/comentariosUnaPregunta", (req, res) => {
 
   mu.getDocsByCriteria(criteria, "comentarios").then((respuesta) => {
     res.send(respuesta);
+  });
+});
+
+router.get("/comentariosUnaPregunta", (req, res) => {
+  const pregunta = req.query.pregunta;
+  const page = req.query.page;
+  const criteria = { pregunta: pregunta };
+  mu.getCommentarios(criteria, parseInt(page)).then((preguntas) => {
+    
+    let hasMore = false;
+    mu.hasMoreComentarios(parseInt(pregunta), criteria).then((number) => {
+      console.log("number", number);
+      if (number > parseInt(page) * 10) {
+        hasMore = true;
+      }
+      res.send({ preguntas, hasMore });
+    });
   });
 });
 

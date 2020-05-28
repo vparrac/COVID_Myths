@@ -1,5 +1,25 @@
-.btn-comentarios{
-    font-family: "Lora", serif;
+.red {
+  color: #ff2638;
+}
+
+.black {
+  color: #20290e;
+}
+
+.green {
+  color: #b8ff33;
+}
+
+.blue {
+  color: #09b3b3;
+}
+
+.skyBlue {
+  color: #6fe3e3;
+}
+
+.btn-comentarios {
+  font-family: "Gotu", sans-serif;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -24,25 +44,29 @@
   font-size: 1.2rem;
   line-height: 1.5;
   border-radius: 0.25rem;
+  background-color: #6fe3e3;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  color: #425cb3;
-  border-color: #425cb3;
+  color: black;
+  border-color: #09b3b3;
 }
 
+.btn-comentarios:hover {
+  color: white;
+}
 .modal-title {
-    margin-bottom: 0;
-    line-height: 1.5;
-    font-family: "Lora", serif;
-    color: #425cb3;
-    font-size: x-large;
+  font-family: "Gotu", sans-serif;
+  margin-bottom: 0;
+  line-height: 1.5;  
+  color: #09b3b3;
+  font-size: x-large;
 }
 
 .list-group-item {
-    position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    background-color: #fff;
-    border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 1px;
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-top-width: 1px;
 }

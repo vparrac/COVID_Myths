@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import "./Menu.css";
-import "./VerNoticias.css";
+import "./styles/Menu.css";
+import "./styles/VerNoticias.css";
 import { useHistory } from "react-router-dom";
 
 const Noticias = (props) => {
@@ -72,30 +71,30 @@ const Noticias = (props) => {
             <div className="row">
               {noticias
                 ? noticias.map((el, key) => {
-                    return (
+                  return (
+                    <div
+                      key={"noticia" + key}
+                      className="col-sm-12 col-md-6 col-lg-6 col-xl-4"
+                    >
                       <div
-                        key={"noticia" + key}
-                        className="col-sm-12 col-md-6 col-lg-6 col-xl-4"
+                        className="card cardBorder"
+                        onClick={() =>
+                          history.push("/verDetalleNoticia", { state: el })
+                        }
                       >
-                        <div
-                          className="card cardBorder"
-                          onClick={() =>
-                            history.push("/verDetalleNoticia", { state: el })
-                          }
-                        >
-                          <img
-                            className="card-img-top"
-                            src={el.urlToImage}
-                            alt="Imagen de noticia"
-                          ></img>
-                          <div className="card-body">
-                            <h5 className="card-title">{el.title}</h5>
-                            <p className="card-text">{el.description}</p>
-                          </div>
+                        <img
+                          className="card-img-top"
+                          src={el.urlToImage}
+                          alt="Imagen de noticia"
+                        ></img>
+                        <div className="card-body">
+                          <h5 className="card-title">{el.title}</h5>
+                          <p className="card-text">{el.description}</p>
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 : ""}
             </div>
             <button className="btnLogin" onClick={() => setPages(page + 1)}>

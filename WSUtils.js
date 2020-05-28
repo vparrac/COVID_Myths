@@ -13,7 +13,7 @@ function WSUtils() {
     });
   };
 
-  wsu.notifyAll = (data) => {
+  wsu.notifyAll = (data) => {    
     clients.forEach(ws => {
       console.log("Notify all");
       ws.send(data);

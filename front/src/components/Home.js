@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Home.css";
+import "./styles/Home.css";
 
 const Home = (props) => {
   return (
@@ -63,13 +63,13 @@ const Home = (props) => {
               </div>
             </div>
             <div className="col">
-            <div className="cards">
+              <div className="cards">
                 <div className="titulo-fin">Ingresa</div>
                 <img src="./img/arrow.png" alt="Ver noticias" className="img-fin-2"></img>
               </div>
             </div>
             <div className="col">
-            <div className="cards">
+              <div className="cards">
                 <div className="titulo-fin">¡Pregunta!</div>
                 <img src="./img/ask.png" alt="Ver noticias" className="img-fin-2"></img>
               </div> 
