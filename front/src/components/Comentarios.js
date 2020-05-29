@@ -161,6 +161,8 @@ const Comentarios = (props) => {
             <div></div>
           )}
         </Modal.Body>
+        //Luis Ruiz: Aquí está el problema del modal, y es que tienen asignado un botón que no hace nada. Para que 
+        //cierre el modal le ponen mejor handleClose y le cambian el nombre al botón por "cerrar" o algo así. 
         <Modal.Footer>
           <button
             className="btn-comentarios"
