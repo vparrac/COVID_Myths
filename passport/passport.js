@@ -1,3 +1,6 @@
+// Mariana Rodriguez: Good use of passport. Sessions seem to last for a short time (at least it did for me when testing the app).
+// There might be additional settings needed to fix this.
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
@@ -7,6 +10,7 @@ const bcrypt = require('bcrypt');
 
 const BCRYPT_SALT_ROUNDS = 12;
 function configurePassport(app) {
+  // Mariana Rodriguez: These configurations are not pertinent to passport and as such should be done in the app.js, not here.Always remember the Single Responsibility Principle :)
   const flash = require("connect-flash");
   app.use(flash());
   const cookieParser = require("cookie-parser");
