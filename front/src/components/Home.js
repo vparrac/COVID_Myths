@@ -7,7 +7,7 @@ const Home = (props) => {
   useEffect(() => {
     new WOW.WOW().init();
   });
-
+//Daniella Arteaga: cambio de seccion de más de un salto (H1 a H6 y H6 a H2)
   return (
     <div>
       <section className="mas" role="img" aria-label="Image Description">
