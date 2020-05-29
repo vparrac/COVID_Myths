@@ -5,6 +5,8 @@ import ForoPreguntas from "./ForoPreguntas";
 import Noticias from "../components/VerNoticias";
 import VerDetalleNoticia from "../components/VerDetalleNoticia";
 import Footer from "../layout/Footer";
+
+//Daniella Arteaga: missing an H1 for the component; missing aria roles.
 const Menu = (props) => {
   const [initial, setInitial] = useState(true);
   return (
