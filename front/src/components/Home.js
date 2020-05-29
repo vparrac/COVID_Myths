@@ -14,7 +14,8 @@ const Home = (props) => {
         <h1 className="title">Covid-19 Myths</h1>
         <h6 className="title2"> Ayúdanos a revelar la verdad </h6>
       </section>
-
+      //Daniella Arteaga: el texto no contrasta lo suficiente por lo que es dificil de leer al igual que en las cards.
+     //Por otra parte, no se puede leer el contenido de las cartas usando navegacion con tab. Igualmente, dado a que no rutea o causa efecto alguno estas no deberían ser clickeables.
       <div className="paragraph wow slideInRight">
         <div className="row margin-70">
           <div className="col-lg-6 col-sm-12">
