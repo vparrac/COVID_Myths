@@ -1,3 +1,13 @@
+<!-- 
+Luis Ruiz: 
+Hola Valerie, espero estés bien.
+Creo que en cuanto a código, todo estaba muy bien. Solo vi un pequeño detalle que te comentaré ahora que termine de escribir esto. 
+El funcionamiento me gusta, para mi es intuitivo y tiene funcionalidades interesantes tanto de consulta como de generación de datos. 
+La parte de noticias me gusta que cargue las noticias a medida que haces scroll. Dentro de cada noticia me gusta mucho que hayan podido implementar que solo se pueda votar una vez. Aquí hay una pequeña cosa de diseño que creo podrían mejorar, y es que la caja de comentarios el título es blanco y el fondo es gris claro, y no hay suficiente contraste para apreciar bien. Me gustó también el modal de confirmación. Creo que me lo robaré para mis futuros proyectos. Siento que puede haber un problema de accesibilidad al haber puesto que todo el div fuera clickeable, y es que al parecer no reconoce los tabs para despazarse sobre ellos. De resto muy bien.
+En la parte de preguntas me gusta que se pueda filtrar y preguntar (aquí lo mismo, un poquito más de contraste). Creo que podrían hacer las cajas de las preguntas un poco más pequeñas, o al menos que los botones de verdad y mito lo fueran. Me gusta que la caja tome el color de si es verdad o es un mito. Cuando uno comenta una publicación, creo que sería bueno filtrar para que no se pueda comentar una cadena vacía. Me gusta como se muestran ahi mismo los comentarios (aunque creo que es más intuitivo que los comentarios esten antes de la opción de comentar, uno antes del otro). Lo que si creo que deben mejorar es el botón que tienen en el footer del modal, pues no veo necesidad de que sea un botón (a menos que le cambien el nombre y sea como "cerrar" o algo así. 
+Pero general creo que está muy bien. 
+Se cuidan
+-->
 # COVID_Myths
 
 The objective of this application is to create a community about truths and lies of COVID-19. Look the main news and verify its content in community. You can also create questions regarding the COVID-19 and people can vote for them or answer them.
